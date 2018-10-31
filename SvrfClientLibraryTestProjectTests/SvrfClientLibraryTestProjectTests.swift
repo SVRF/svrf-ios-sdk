@@ -224,6 +224,23 @@ class SvrfClientLibraryTestProjectTests: XCTestCase {
         waitForExpectations(timeout: requestTimeOut, handler: nil)
     }
     
+    func testSearchMethodWithMultipleTypes() {
+        let promise = expectation(description: "Search request with multiple types")
+        searh(query: singleSearchQuery,type: [MediaType.video, MediaType.photo], success: { (searchMediaResponse) in
+            var isOnlySearchedTypes = true
+            for mediaObject in searchMediaResponse.media! {
+                if (mediaObject.type == MediaType._3d) {
+                    isOnlySearchedTypes = false
+                }
+            }
+            XCTAssertFalse(isOnlySearchedTypes, "Another Media Type was detected in search method with photo and video types. Please check search method in client API library. In this test was sent MediaType.video and MediaType.photo.")
+            promise.fulfill()
+        }) { (error) in
+            promise.fulfill()
+        }
+        waitForExpectations(timeout: requestTimeOut, handler: nil)
+    }
+    
     func testSearchMethodWith5Size() {
         let promise = expectation(description: "Search request with size = 5")
         searh(query: singleSearchQuery, size: 5, success: { (searchMediaResponse) in
@@ -381,6 +398,23 @@ class SvrfClientLibraryTestProjectTests: XCTestCase {
             promise.fulfill()
         }) { (error) in
             XCTFail("Something went wrong in get trending method with 3d type. First of all check that previous tests finished with success.")
+            promise.fulfill()
+        }
+        waitForExpectations(timeout: requestTimeOut, handler: nil)
+    }
+    
+    func testGetTrendingWithMultipleTypes() {
+        let promise = expectation(description: "Get trending request with multiple types")
+        getTrending(type: [MediaType.video, MediaType.photo], success: { (trendingResponse) in
+            var isOnlySearchedTypes = true
+            for mediaObject in trendingResponse.media! {
+                if (mediaObject.type == MediaType._3d) {
+                    isOnlySearchedTypes = false
+                }
+            }
+            XCTAssertFalse(isOnlySearchedTypes, "Another Media Type was detected in get trending method with photo and video types. Please check get trending method in client API library. In this test was sent MediaType.video and MediaType.photo.")
+            promise.fulfill()
+        }) { (error) in
             promise.fulfill()
         }
         waitForExpectations(timeout: requestTimeOut, handler: nil)
