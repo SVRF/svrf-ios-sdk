@@ -155,6 +155,7 @@ open class MediaAPI {
             "size": size?.encodeToJSON(), 
             "pageNum": pageNum?.encodeToJSON()
         ])
+        
 
         let requestBuilder: RequestBuilder<SearchMediaResponse>.Type = SVRFClientSwiftAPI.requestBuilderFactory.getBuilder()
 
