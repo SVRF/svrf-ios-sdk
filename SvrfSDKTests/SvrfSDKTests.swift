@@ -2,8 +2,8 @@
 //  SvrfSDKTests.swift
 //  SvrfSDKTests
 //
-//  Created by Andrey Evstratenko on 05/11/2018.
-//  Copyright © 2018 Andrey Evstratenko. All rights reserved.
+//  Created by Andrei Evstratenko on 05/11/2018.
+//  Copyright © 2018 SVRF, Inc. All rights reserved.
 //
 
 import XCTest
