@@ -30,7 +30,15 @@ public class SvrfSDK: NSObject {
     
     private static let dispatchGroup = DispatchGroup()
     
-    //MARK: public functions
+    // MARK: public functions
+    /**
+     Authenticate your API Key with the Svrf API.
+     
+     - parameters:
+       - onSuccess: Success closure.
+       - onFailure: Failure closure.
+       - error: Error message.
+    */
     public static func authenticate(onSuccess success: @escaping () -> Void, onFailure failure: @escaping (_ error: SvrfError) -> Void) {
         
         dispatchGroup.enter()
@@ -86,6 +94,21 @@ public class SvrfSDK: NSObject {
         }
     }
     
+    /**
+     The Svrf Search Endpoint brings the power of immersive search found on [Svrf.com](https://www.svrf.com) to your app or project. Svrf's search engine enables your users to instantly find the immersive experience they're seeking. Content is sorted by the Svrf rating system, ensuring that the highest quality content and most prevalent search results are returned.
+     
+     - parameters:
+       - query: Url-encoded search query.
+       - type: The type(s) of *Media* to be returned (comma separated).
+       - stereoscopicType: Search only for *Media* with a particular stereoscopic type.
+       - category: Search only for *Media* with a particular category.
+       - size: The number of results to return per-page, from 1 to 100.
+       - pageNum: Pagination control to fetch the next page of results, if applicable.
+       - onSuccess: Success closure.
+       - mediaArray: An array of *Media* from the Svrf API.
+       - onFailure: Error closure.
+       - error: Error message.
+     */
     public static func search(query: String,
                               type: [MediaType]?,
                               stereoscopicType: String?,
@@ -115,6 +138,20 @@ public class SvrfSDK: NSObject {
         }
     }
     
+    /**
+     The Svrf Trending Endpoint provides your app or project with the hottest immersive content curated by real humans. The experiences returned mirror the [Svrf homepage](https://www.svrf.com), from timely cultural content to trending pop-culture references. The trending experiences are updated regularly to ensure users always get fresh updates of immersive content.
+     
+     - parameters:
+       - type: The type(s) of *Media* to be returned (comma separated).
+       - stereoscopicType: Search only for *Media* with a particular stereoscopic type.
+       - category: Search only for *Media* with a particular category.
+       - size: The number of results to return per-page, from 1 to 100.
+       - nextPageCursor: Pass this cursor ID to get the next page of results.
+       - onSuccess: Success closure.
+       - mediaArray: An array of *Media* from the Svrf API.
+       - onFailure: Error closure.
+       - error: Error message.
+     */
     public static func getTrending(type: [MediaType]?,
                                    stereoscopicType: String?,
                                    category: String?,
@@ -143,6 +180,16 @@ public class SvrfSDK: NSObject {
         }
     }
     
+    /**
+     Fetch SVRF media by its ID.
+     
+     - parameters:
+       - id: ID of *Media* to fetch.
+       - onSuccess: Success closure.
+       - media: *Media* from the Svrf API.
+       - onFailure: Error closure.
+       - error: Error message.
+     */
     public static func getMedia(id: String, onSuccess success: @escaping (_ media: Media) -> Void, onFailure failure: @escaping (_ error: SvrfError) -> Void) {
         
         dispatchGroup.notify(queue: .main) {
@@ -165,6 +212,14 @@ public class SvrfSDK: NSObject {
         }
     }
     
+    /**
+     Generates a *SCNNode* for a *Media* with a *type* `_3d`. This method can used to generate the whole 3D model, but is not recommended for face filters.
+     
+     - attention: Face filters should be retrieved using the `getFaceFilter` method.
+     - parameters:
+       - media: The *Media* to generate the *SCNNode* from. The *type* must be `_3d`.
+     - returns: SCNNode?
+     */
     public static func getNodeFromMedia(media: Media) -> SCNNode? {
         
         if media.type == ._3d {
@@ -180,6 +235,15 @@ public class SvrfSDK: NSObject {
         return nil
     }
     
+    /**
+     Blend shape mapping allows SVRF's ARKit compatible face filters to have animations that are activated by your user's facial expressions.
+     
+     - Attention: This method enumerates through the node's hierarchy. Any children nodes with morpher targets that follow the [ARKit blend shape naming conventions](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation) will be affected.
+     - Note: The 3D animation terms "blend shapes", "morph targets", and "pose morphs" are often used interchangably.
+     - parameters:
+       - blendShapes: A dictionary of *ARFaceAnchor* blend shape locations and weights.
+       - for: The node with morpher targets.
+     */
     public static func setBlendShapes(blendShapes: [ARFaceAnchor.BlendShapeLocation : NSNumber], for node: SCNNode) {
         
         node.enumerateHierarchy { (childNode, _) in
@@ -191,8 +255,14 @@ public class SvrfSDK: NSObject {
         }
     }
     
-    public static func getFaceFilter(with device: MTLDevice, media: Media) -> SCNNode {
-        
+    /**
+     The SVRF API allows you to access all of SVRF's ARKit compatible face filters and stream them directly to your app. Use the `getFaceFilter` method to stream a face filter to your app and convert it into a *SCNNode* in runtime.
+     
+     - parameters:
+       - media: The *Media* to generate the face filter from. The *type* must be `_3d`.
+     - returns: SCNNode
+     */
+    public static func getFaceFilter(media: Media) -> SCNNode {
         let faceFilter = SCNNode()
         
         if media.type == ._3d, let glbUrlString = media.files?.glb, let glbUrl = URL(string: glbUrlString) {
@@ -215,14 +285,20 @@ public class SvrfSDK: NSObject {
                 SEGAnalytics.shared().track("Face Filter Node Requested", properties: ["media_id" : media.id ?? "unknown"])
             } catch {
                 print(SvrfError.CreateScene)
-                print(error.localizedDescription)
             }
         }
         
         return faceFilter
     }
     
-    //MARK: private functions
+    // MARK: private functions
+    /**
+     Renders a *SCNScene* from a *Media*'s glb file using *SvrfGLTFSceneKit*.
+
+     - parameters:
+        - media: The *Media* to return a *SCNScene* from.
+     - returns: SCNScene?
+     */
     private static func getSceneFromMedia(media: Media) -> SCNScene? {
         
         if let glbUrlString = media.files?.glb {
@@ -244,6 +320,11 @@ public class SvrfSDK: NSObject {
         return nil
     }
     
+    /**
+     Checks if the Svrf authentication token has expired.
+
+     - returns: Bool
+     */
     private static func needUpdateToken() -> Bool {
         
         if let tokenExpirationDate = UserDefaults.standard.object(forKey: svrfAuthTokenExpireDateKey) as? Date {
@@ -257,6 +338,13 @@ public class SvrfSDK: NSObject {
         return true
     }
     
+    /**
+     Takes the `expireIn` value returned by the Svrf authentication endpoint and returns the expiration date.
+
+     - parameters:
+       - expireIn: The time until token expiration in seconds.
+     - returns: Date
+     */
     private static func getTokenExpireDate(expireIn: Int) -> Date {
         
         guard let timeInterval = TimeInterval(exactly: expireIn) else {
@@ -266,6 +354,9 @@ public class SvrfSDK: NSObject {
         return Date().addingTimeInterval(timeInterval)
     }
     
+    /**
+     Setup Segment analytic event tracking.
+     */
     private static func setupAnalytics() {
         
         let configuration = SEGAnalyticsConfiguration(writeKey: svrfAnalyticsKey)
