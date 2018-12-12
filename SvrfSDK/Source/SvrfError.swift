@@ -3,24 +3,25 @@
 //  SVRFFrameworkSetup
 //
 //  Created by Andrei Evstratenko on 08/11/2018.
-//  Copyright © 2018 SVRF, Inc. All rights reserved.
+//  Copyright © 2018 Svrf, Inc. All rights reserved.
 //
 
 import Foundation
 
-public enum SvrfError: String {
+public struct SvrfError {
+    public let title: String
+    public let description: String?
+}
+
+public enum SvrfErrorTitle: String {
     
-    case Plist = "SVRF: Problems with .plist file"
-    case ApiKey = "SVRF: Problems with API key. Please, set your API key into .plist file for SVRF_API_KEY field"
-    case AuthResponse = "SVRF: Authentication response error"
-    case SearchResponse = "SVRF: Search response error"
-    case TrendingResponse = "SVRF: Trending response error"
-    case MediaResponse = "SVRF: Media response error"
-    case GetScene = "SVRF: Get scene error"
-    case CreateScene = "SVRF: Create scene error"
-    
-    enum GetNode: String {
-        case IncorrectMediaType = "Svrf: Incorrect media type. Media type should be equal _3d"
-        case GetScene = "Svrf: Can't get scene from media. Scene is equal nil"
+    enum Auth: String {
+        case ResponseNoToken = "There is no token in the server response."
+        case ApiKey = "There is no API key in the Info.plist file. Please, set your API key into Info.plist file for SVRF_API_KEY field."
     }
+    
+    case Response = "Server response error."
+    case ResponseNoMediaArray = "There is no mediaArray in the server response."
+    case GetScene = "Can't get scene from the media."
+    case IncorrectMediaType = "Media type should equal _3d."
 }
