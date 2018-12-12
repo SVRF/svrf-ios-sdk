@@ -14,14 +14,14 @@ public struct SvrfError {
 }
 
 public enum SvrfErrorTitle: String {
-    
+
     enum Auth: String {
-        case ResponseNoToken = "There is no token in the server response."
-        case ApiKey = "There is no API key in the Info.plist file. Please, set your API key into Info.plist file for SVRF_API_KEY field."
+        case responseNoToken = "There is no token in the server response."
+        case apiKey = "There is no API key in the Info.plist file. Please, set your API key into Info.plist file for SVRF_API_KEY field."
     }
-    
-    case Response = "Server response error."
-    case ResponseNoMediaArray = "There is no mediaArray in the server response."
-    case GetScene = "Can't get scene from the media."
-    case IncorrectMediaType = "Media type should equal _3d."
+
+    case response = "Server response error."
+    case responseNoMediaArray = "There is no mediaArray in the server response."
+    case getScene = "Can't get scene from the media."
+    case incorrectMediaType = "Media type should equal _3d."
 }

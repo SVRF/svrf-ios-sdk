@@ -1,0 +1,9 @@
+warning_threshold: 15
+
+excluded:
+- Carthage
+- Pods
+
+disabled_rules:
+  - type_body_length
+  - file_length
