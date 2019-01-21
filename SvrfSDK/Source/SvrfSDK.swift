@@ -47,7 +47,9 @@ public class SvrfSDK: NSObject {
         setupAnalytics()
 
         if !needUpdateToken() {
-            let authToken = UserDefaults.standard.string(forKey: svrfAuthTokenKey)!
+
+            let authToken = String(data: (SvrfKeyChain.load(key: svrfAuthTokenKey))!, encoding: .utf8)!
+
             SVRFClientAPI.customHeaders = [svrfXAppTokenKey: authToken]
 
             if let success = success {
@@ -76,10 +78,10 @@ public class SvrfSDK: NSObject {
                 }
 
                 if let authToken = authResponse?.token, let expireIn = authResponse?.expiresIn {
-                    UserDefaults.standard.set(authToken, forKey: svrfAuthTokenKey)
+
+                    _ = SvrfKeyChain.save(key: svrfAuthTokenKey, data: Data(authToken.utf8))
                     UserDefaults.standard.set(getTokenExpireDate(expireIn: expireIn),
                                               forKey: svrfAuthTokenExpireDateKey)
-
                     SVRFClientAPI.customHeaders = [svrfXAppTokenKey: authToken]
 
                     if let success = success {
@@ -337,10 +339,10 @@ public class SvrfSDK: NSObject {
 
                     do {
                         let scene = try modelSource.scene()
-                        
+
                         SEGAnalytics.shared().track("3D Node Requested",
                                                     properties: ["media_id": media.id ?? "unknown"])
-                        
+
                         return scene
                     } catch {
 
@@ -356,19 +358,20 @@ public class SvrfSDK: NSObject {
          
          - returns: Bool
          */
-        private static func needUpdateToken() -> Bool {
+    private static func needUpdateToken() -> Bool {
+        
+        if let tokenExpirationDate = UserDefaults.standard.object(forKey: svrfAuthTokenExpireDateKey) as? Date,
+            let receivedData = SvrfKeyChain.load(key: svrfAuthTokenKey),
+            String(data: receivedData, encoding: .utf8) != nil {
 
-            if let tokenExpirationDate = UserDefaults.standard.object(forKey: svrfAuthTokenExpireDateKey) as? Date,
-                UserDefaults.standard.string(forKey: svrfAuthTokenKey) != nil {
-
-                let twoDays = 172800
-                if Int(Date().timeIntervalSince(tokenExpirationDate)) < twoDays {
-                    return false
-                }
+            let twoDays = 172800
+            if Int(Date().timeIntervalSince(tokenExpirationDate)) < twoDays {
+                return false
             }
-
-            return true
         }
+
+        return true
+    }
 
         /**
          Takes the `expireIn` value returned by the Svrf authentication endpoint and returns the expiration date.
@@ -397,7 +400,8 @@ public class SvrfSDK: NSObject {
 
             SEGAnalytics.setup(with: configuration)
 
-            if let authToken = UserDefaults.standard.string(forKey: svrfAuthTokenKey) {
+            if let receivedData = SvrfKeyChain.load(key: svrfAuthTokenKey),
+                let authToken = String(data: receivedData, encoding: .utf8) {
 
                 let body = SvrfJWTDecoder.decode(jwtToken: authToken)
                 if let appId = body["appId"] as? String {
