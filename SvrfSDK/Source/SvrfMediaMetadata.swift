@@ -1,4 +1,4 @@
-public struct MediaMetadata: Codable {
+public struct SvrfMediaMetadata: Codable {
 
     /** For 3D Media, denotes that this model contains blend shapes, but having to calculate and apply weights
      to them is not required. These are models like glasses, hats, and billboards that do not react to face movement. */

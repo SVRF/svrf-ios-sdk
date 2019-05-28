@@ -1,4 +1,4 @@
-public struct MediaVideos: Codable {
+public struct SvrfMediaVideos: Codable {
 
     /** 848px wide video with a 1.3MBps video rate, 96KBps audio rate. */
     public let _848: String?

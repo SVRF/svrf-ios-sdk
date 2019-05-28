@@ -1,4 +1,4 @@
-struct TrendingResponse: Codable {
+struct SvrfSearchResponse: Codable {
 
     /** If the request was successful */
     let success: Bool?
@@ -6,6 +6,10 @@ struct TrendingResponse: Codable {
     let nextPageNum: Int?
     /** The current page number */
     let pageNum: Int?
-    /** Trending media */
-    let media: [Media]?
+    /** The search results */
+    let media: [SvrfMedia]?
+    /** The number of milliseconds the request took */
+    let tookMs: Int?
+    /** The number of total results for query */
+    let totalNum: Int?
 }

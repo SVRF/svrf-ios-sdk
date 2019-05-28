@@ -14,9 +14,9 @@ import Foundation
  - pageNum: Pagination control to fetch the next page of results, if applicable.
  */
 public struct SvrfOptions {
-    public init(type: [MediaType]? = nil,
-                stereoscopicType: StereoscopicType? = nil,
-                category: Category? = nil,
+    public init(type: [SvrfMediaType]? = nil,
+                stereoscopicType: SvrfStereoscopicType? = nil,
+                category: SvrfCategory? = nil,
                 size: Int? = nil,
                 minimumWidth: Int? = nil,
                 isFaceFilter: Bool? = nil,
@@ -34,9 +34,9 @@ public struct SvrfOptions {
         self.pageNum = pageNum
     }
 
-    let type: [MediaType]?
-    let stereoscopicType: StereoscopicType?
-    let category: Category?
+    let type: [SvrfMediaType]?
+    let stereoscopicType: SvrfStereoscopicType?
+    let category: SvrfCategory?
     let size: Int?
     let minimumWidth: Int?
     let isFaceFilter: Bool?

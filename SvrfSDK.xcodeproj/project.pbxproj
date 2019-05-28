@@ -23,20 +23,20 @@
 /* Begin PBXBuildFile section */
 		9A866D7E60EE7626BE3E912A /* Pods_SvrfSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7271369A8F168B0107ADF84 /* Pods_SvrfSDK.framework */; };
 		D174B987E603B4A2A48A75A8 /* Pods_SvrfSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C93A2DAA16A3EA229DBAF628 /* Pods_SvrfSDKTests.framework */; };
-		EC1AB98F229D24D3003FCA5D /* TrendingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB981229D24D2003FCA5D /* TrendingResponse.swift */; };
-		EC1AB990229D24D3003FCA5D /* MediaVideos.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB982229D24D2003FCA5D /* MediaVideos.swift */; };
-		EC1AB991229D24D3003FCA5D /* AuthenticationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB983229D24D3003FCA5D /* AuthenticationResponse.swift */; };
-		EC1AB992229D24D3003FCA5D /* MediaResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB984229D24D3003FCA5D /* MediaResponse.swift */; };
-		EC1AB993229D24D3003FCA5D /* MediaStereo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB985229D24D3003FCA5D /* MediaStereo.swift */; };
-		EC1AB994229D24D3003FCA5D /* MediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB986229D24D3003FCA5D /* MediaType.swift */; };
-		EC1AB995229D24D3003FCA5D /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB987229D24D3003FCA5D /* Media.swift */; };
-		EC1AB996229D24D3003FCA5D /* MediaMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB988229D24D3003FCA5D /* MediaMetadata.swift */; };
-		EC1AB997229D24D3003FCA5D /* MediaImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB989229D24D3003FCA5D /* MediaImages.swift */; };
-		EC1AB998229D24D3003FCA5D /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB98A229D24D3003FCA5D /* APIManager.swift */; };
-		EC1AB999229D24D3003FCA5D /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB98B229D24D3003FCA5D /* SearchResponse.swift */; };
+		EC1AB98F229D24D3003FCA5D /* SvrfTrendingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB981229D24D2003FCA5D /* SvrfTrendingResponse.swift */; };
+		EC1AB990229D24D3003FCA5D /* SvrfMediaVideos.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB982229D24D2003FCA5D /* SvrfMediaVideos.swift */; };
+		EC1AB991229D24D3003FCA5D /* SvrfAuthenticationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB983229D24D3003FCA5D /* SvrfAuthenticationResponse.swift */; };
+		EC1AB992229D24D3003FCA5D /* SvrfMediaResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB984229D24D3003FCA5D /* SvrfMediaResponse.swift */; };
+		EC1AB993229D24D3003FCA5D /* SvrfMediaStereo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB985229D24D3003FCA5D /* SvrfMediaStereo.swift */; };
+		EC1AB994229D24D3003FCA5D /* SvrfMediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB986229D24D3003FCA5D /* SvrfMediaType.swift */; };
+		EC1AB995229D24D3003FCA5D /* SvrfMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB987229D24D3003FCA5D /* SvrfMedia.swift */; };
+		EC1AB996229D24D3003FCA5D /* SvrfMediaMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB988229D24D3003FCA5D /* SvrfMediaMetadata.swift */; };
+		EC1AB997229D24D3003FCA5D /* SvrfMediaImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB989229D24D3003FCA5D /* SvrfMediaImages.swift */; };
+		EC1AB998229D24D3003FCA5D /* SvrfAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB98A229D24D3003FCA5D /* SvrfAPIManager.swift */; };
+		EC1AB999229D24D3003FCA5D /* SvrfSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB98B229D24D3003FCA5D /* SvrfSearchResponse.swift */; };
 		EC1AB99A229D24D3003FCA5D /* SvrfOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB98C229D24D3003FCA5D /* SvrfOptions.swift */; };
-		EC1AB99B229D24D3003FCA5D /* MediaFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB98D229D24D3003FCA5D /* MediaFiles.swift */; };
-		EC1AB99C229D24D3003FCA5D /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB98E229D24D3003FCA5D /* Enums.swift */; };
+		EC1AB99B229D24D3003FCA5D /* SvrfMediaFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB98D229D24D3003FCA5D /* SvrfMediaFiles.swift */; };
+		EC1AB99C229D24D3003FCA5D /* SvrfEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB98E229D24D3003FCA5D /* SvrfEnums.swift */; };
 		EC1EF171219A1189006F12B0 /* SvrfSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1EF167219A1189006F12B0 /* SvrfSDK.framework */; };
 		EC1EF176219A1189006F12B0 /* SvrfSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1EF175219A1189006F12B0 /* SvrfSDKTests.swift */; };
 		EC1EF178219A1189006F12B0 /* SvrfSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = EC1EF16A219A1189006F12B0 /* SvrfSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -63,20 +63,20 @@
 		B2EED774328EC0E3858EADA3 /* Pods-SvrfSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDK/Pods-SvrfSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		C93A2DAA16A3EA229DBAF628 /* Pods_SvrfSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SvrfSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7271369A8F168B0107ADF84 /* Pods_SvrfSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SvrfSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EC1AB981229D24D2003FCA5D /* TrendingResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingResponse.swift; sourceTree = "<group>"; };
-		EC1AB982229D24D2003FCA5D /* MediaVideos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaVideos.swift; sourceTree = "<group>"; };
-		EC1AB983229D24D3003FCA5D /* AuthenticationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationResponse.swift; sourceTree = "<group>"; };
-		EC1AB984229D24D3003FCA5D /* MediaResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaResponse.swift; sourceTree = "<group>"; };
-		EC1AB985229D24D3003FCA5D /* MediaStereo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaStereo.swift; sourceTree = "<group>"; };
-		EC1AB986229D24D3003FCA5D /* MediaType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaType.swift; sourceTree = "<group>"; };
-		EC1AB987229D24D3003FCA5D /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
-		EC1AB988229D24D3003FCA5D /* MediaMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaMetadata.swift; sourceTree = "<group>"; };
-		EC1AB989229D24D3003FCA5D /* MediaImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaImages.swift; sourceTree = "<group>"; };
-		EC1AB98A229D24D3003FCA5D /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
-		EC1AB98B229D24D3003FCA5D /* SearchResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
+		EC1AB981229D24D2003FCA5D /* SvrfTrendingResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfTrendingResponse.swift; sourceTree = "<group>"; };
+		EC1AB982229D24D2003FCA5D /* SvrfMediaVideos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfMediaVideos.swift; sourceTree = "<group>"; };
+		EC1AB983229D24D3003FCA5D /* SvrfAuthenticationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfAuthenticationResponse.swift; sourceTree = "<group>"; };
+		EC1AB984229D24D3003FCA5D /* SvrfMediaResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfMediaResponse.swift; sourceTree = "<group>"; };
+		EC1AB985229D24D3003FCA5D /* SvrfMediaStereo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfMediaStereo.swift; sourceTree = "<group>"; };
+		EC1AB986229D24D3003FCA5D /* SvrfMediaType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfMediaType.swift; sourceTree = "<group>"; };
+		EC1AB987229D24D3003FCA5D /* SvrfMedia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfMedia.swift; sourceTree = "<group>"; };
+		EC1AB988229D24D3003FCA5D /* SvrfMediaMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfMediaMetadata.swift; sourceTree = "<group>"; };
+		EC1AB989229D24D3003FCA5D /* SvrfMediaImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfMediaImages.swift; sourceTree = "<group>"; };
+		EC1AB98A229D24D3003FCA5D /* SvrfAPIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfAPIManager.swift; sourceTree = "<group>"; };
+		EC1AB98B229D24D3003FCA5D /* SvrfSearchResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfSearchResponse.swift; sourceTree = "<group>"; };
 		EC1AB98C229D24D3003FCA5D /* SvrfOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfOptions.swift; sourceTree = "<group>"; };
-		EC1AB98D229D24D3003FCA5D /* MediaFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaFiles.swift; sourceTree = "<group>"; };
-		EC1AB98E229D24D3003FCA5D /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		EC1AB98D229D24D3003FCA5D /* SvrfMediaFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfMediaFiles.swift; sourceTree = "<group>"; };
+		EC1AB98E229D24D3003FCA5D /* SvrfEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfEnums.swift; sourceTree = "<group>"; };
 		EC1EF167219A1189006F12B0 /* SvrfSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SvrfSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC1EF16A219A1189006F12B0 /* SvrfSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SvrfSDK.h; sourceTree = "<group>"; };
 		EC1EF16B219A1189006F12B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -172,26 +172,42 @@
 		EC75A3CF219AAEF6003C1108 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				EC1AB98A229D24D3003FCA5D /* APIManager.swift */,
-				EC1AB983229D24D3003FCA5D /* AuthenticationResponse.swift */,
-				EC1AB98E229D24D3003FCA5D /* Enums.swift */,
-				EC1AB987229D24D3003FCA5D /* Media.swift */,
-				EC1AB98D229D24D3003FCA5D /* MediaFiles.swift */,
-				EC1AB989229D24D3003FCA5D /* MediaImages.swift */,
-				EC1AB988229D24D3003FCA5D /* MediaMetadata.swift */,
-				EC1AB984229D24D3003FCA5D /* MediaResponse.swift */,
-				EC1AB985229D24D3003FCA5D /* MediaStereo.swift */,
-				EC1AB986229D24D3003FCA5D /* MediaType.swift */,
-				EC1AB982229D24D2003FCA5D /* MediaVideos.swift */,
-				EC1AB98B229D24D3003FCA5D /* SearchResponse.swift */,
+				ECE2199C229D62940079EF93 /* SvrfModels */,
+				EC1AB98A229D24D3003FCA5D /* SvrfAPIManager.swift */,
+				EC1AB98E229D24D3003FCA5D /* SvrfEnums.swift */,
 				EC1AB98C229D24D3003FCA5D /* SvrfOptions.swift */,
-				EC1AB981229D24D2003FCA5D /* TrendingResponse.swift */,
 				EC6F42F521F1D2CA00F7FD17 /* SvrfKeyChain.swift */,
 				ECFE7EB321B7F9EB00A2FB93 /* SvrfJWTDecoder.swift */,
 				EC75A3CC219AAD23003C1108 /* SvrfError.swift */,
 				EC1EF181219A11F6006F12B0 /* SvrfSDK.swift */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		ECE2199C229D62940079EF93 /* SvrfModels */ = {
+			isa = PBXGroup;
+			children = (
+				ECE2199E229D63000079EF93 /* SvrfResponses */,
+				EC1AB987229D24D3003FCA5D /* SvrfMedia.swift */,
+				EC1AB98D229D24D3003FCA5D /* SvrfMediaFiles.swift */,
+				EC1AB989229D24D3003FCA5D /* SvrfMediaImages.swift */,
+				EC1AB988229D24D3003FCA5D /* SvrfMediaMetadata.swift */,
+				EC1AB985229D24D3003FCA5D /* SvrfMediaStereo.swift */,
+				EC1AB986229D24D3003FCA5D /* SvrfMediaType.swift */,
+				EC1AB982229D24D2003FCA5D /* SvrfMediaVideos.swift */,
+			);
+			name = SvrfModels;
+			sourceTree = "<group>";
+		};
+		ECE2199E229D63000079EF93 /* SvrfResponses */ = {
+			isa = PBXGroup;
+			children = (
+				EC1AB983229D24D3003FCA5D /* SvrfAuthenticationResponse.swift */,
+				EC1AB984229D24D3003FCA5D /* SvrfMediaResponse.swift */,
+				EC1AB98B229D24D3003FCA5D /* SvrfSearchResponse.swift */,
+				EC1AB981229D24D2003FCA5D /* SvrfTrendingResponse.swift */,
+			);
+			name = SvrfResponses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -391,23 +407,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC1AB997229D24D3003FCA5D /* MediaImages.swift in Sources */,
-				EC1AB995229D24D3003FCA5D /* Media.swift in Sources */,
-				EC1AB99B229D24D3003FCA5D /* MediaFiles.swift in Sources */,
-				EC1AB994229D24D3003FCA5D /* MediaType.swift in Sources */,
+				EC1AB997229D24D3003FCA5D /* SvrfMediaImages.swift in Sources */,
+				EC1AB995229D24D3003FCA5D /* SvrfMedia.swift in Sources */,
+				EC1AB99B229D24D3003FCA5D /* SvrfMediaFiles.swift in Sources */,
+				EC1AB994229D24D3003FCA5D /* SvrfMediaType.swift in Sources */,
 				EC1EF182219A11F6006F12B0 /* SvrfSDK.swift in Sources */,
 				EC75A3CE219AAD23003C1108 /* SvrfError.swift in Sources */,
-				EC1AB991229D24D3003FCA5D /* AuthenticationResponse.swift in Sources */,
-				EC1AB998229D24D3003FCA5D /* APIManager.swift in Sources */,
+				EC1AB991229D24D3003FCA5D /* SvrfAuthenticationResponse.swift in Sources */,
+				EC1AB998229D24D3003FCA5D /* SvrfAPIManager.swift in Sources */,
 				ECFE7EB421B7F9EB00A2FB93 /* SvrfJWTDecoder.swift in Sources */,
-				EC1AB993229D24D3003FCA5D /* MediaStereo.swift in Sources */,
+				EC1AB993229D24D3003FCA5D /* SvrfMediaStereo.swift in Sources */,
 				EC1AB99A229D24D3003FCA5D /* SvrfOptions.swift in Sources */,
-				EC1AB996229D24D3003FCA5D /* MediaMetadata.swift in Sources */,
-				EC1AB98F229D24D3003FCA5D /* TrendingResponse.swift in Sources */,
-				EC1AB999229D24D3003FCA5D /* SearchResponse.swift in Sources */,
-				EC1AB992229D24D3003FCA5D /* MediaResponse.swift in Sources */,
-				EC1AB990229D24D3003FCA5D /* MediaVideos.swift in Sources */,
-				EC1AB99C229D24D3003FCA5D /* Enums.swift in Sources */,
+				EC1AB996229D24D3003FCA5D /* SvrfMediaMetadata.swift in Sources */,
+				EC1AB98F229D24D3003FCA5D /* SvrfTrendingResponse.swift in Sources */,
+				EC1AB999229D24D3003FCA5D /* SvrfSearchResponse.swift in Sources */,
+				EC1AB992229D24D3003FCA5D /* SvrfMediaResponse.swift in Sources */,
+				EC1AB990229D24D3003FCA5D /* SvrfMediaVideos.swift in Sources */,
+				EC1AB99C229D24D3003FCA5D /* SvrfEnums.swift in Sources */,
 				EC6F42F621F1D2CA00F7FD17 /* SvrfKeyChain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

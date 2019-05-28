@@ -1,7 +1,7 @@
 import Foundation
 import Alamofire
 
-class APIManager {
+class SvrfAPIManager {
 
     static private let baseURL = "https://api.svrf.com/v1"
     static private var xAppToken: String?
@@ -11,7 +11,7 @@ class APIManager {
     }
 
     static func authenticate(with apiKey: String,
-                             onSuccess success: @escaping (_ authenticationResponse: AuthenticationResponse) -> Void,
+                             onSuccess success: @escaping (_ authenticationResponse: SvrfAuthenticationResponse) -> Void,
                              onFailure failure: @escaping (_ error: Error?) -> Void) {
 
         let path = "/app/authenticate"
@@ -29,7 +29,7 @@ class APIManager {
             if let jsonData = response.data {
                 do {
                     let decoder = JSONDecoder()
-                    let authenticationResponse = try decoder.decode(AuthenticationResponse.self, from: jsonData)
+                    let authenticationResponse = try decoder.decode(SvrfAuthenticationResponse.self, from: jsonData)
 
                     success(authenticationResponse)
                 } catch let error {
@@ -40,7 +40,7 @@ class APIManager {
     }
 
     static func getMedia(by identifier: String,
-                         onSuccess success: @escaping (_ mediaResponse: MediaResponse) -> Void,
+                         onSuccess success: @escaping (_ mediaResponse: SvrfMediaResponse) -> Void,
                          onFailure failure: @escaping (_ error: Error?) -> Void) {
 
         let path = "/vr/\(identifier)"
@@ -60,7 +60,7 @@ class APIManager {
 
                 do {
                     let decoder = JSONDecoder()
-                    let mediaResponse = try decoder.decode(MediaResponse.self, from: jsonData)
+                    let mediaResponse = try decoder.decode(SvrfMediaResponse.self, from: jsonData)
 
                     success(mediaResponse)
                 } catch let error {
@@ -71,7 +71,7 @@ class APIManager {
     }
 
     static func getTrending(options: SvrfOptions?,
-                            onSuccess success: @escaping (_ trendingResponse: TrendingResponse) -> Void,
+                            onSuccess success: @escaping (_ trendingResponse: SvrfTrendingResponse) -> Void,
                             onFailure failure: @escaping (_ error: Error?) -> Void) {
 
         let path = "/vr/trending"
@@ -104,7 +104,7 @@ class APIManager {
 
                 do {
                     let decoder = JSONDecoder()
-                    let trendingResponse = try decoder.decode(TrendingResponse.self, from: jsonData)
+                    let trendingResponse = try decoder.decode(SvrfTrendingResponse.self, from: jsonData)
 
                     success(trendingResponse)
                 } catch let error {
@@ -116,7 +116,7 @@ class APIManager {
 
     static func search(query: String,
                        options: SvrfOptions?,
-                       onSuccess success: @escaping (_ searchResponse: SearchResponse) -> Void,
+                       onSuccess success: @escaping (_ searchResponse: SvrfSearchResponse) -> Void,
                        onFailure failure: @escaping (_ error: Error?) -> Void) {
 
         let path = "/vr/search"
@@ -148,7 +148,7 @@ class APIManager {
 
                 do {
                     let decoder = JSONDecoder()
-                    let searchResponse = try decoder.decode(SearchResponse.self, from: jsonData)
+                    let searchResponse = try decoder.decode(SvrfSearchResponse.self, from: jsonData)
 
                     success(searchResponse)
                 } catch let error {

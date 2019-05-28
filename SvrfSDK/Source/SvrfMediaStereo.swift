@@ -1,4 +1,4 @@
-public struct MediaStereo: Codable {
+public struct SvrfMediaStereo: Codable {
 
     /** 848px wide video with a 1.3MBps video rate, 96KBps audio rate.
      Only included if the Media is a &#x60;video&#x60;. */

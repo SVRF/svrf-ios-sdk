@@ -12,7 +12,7 @@ import Analytics
 import SceneKit
 import ARKit
 
-public typealias SvrfMedia = Media
+//public typealias SvrfMedia = SvrfMedia
 
 private enum ChildNode: String {
     case head = "Head"
@@ -48,7 +48,7 @@ public class SvrfSDK: NSObject {
 
         if !needUpdateToken() {
             let authToken = String(data: (SvrfKeyChain.load(key: svrfAuthTokenKey))!, encoding: .utf8)!
-            APIManager.setToken(authToken)
+            SvrfAPIManager.setToken(authToken)
 
             if let success = success {
                 success()
@@ -69,9 +69,9 @@ public class SvrfSDK: NSObject {
             }
 
             if let key = key {
-                APIManager.authenticate(with: key, onSuccess: { authenticationResponse in
+                SvrfAPIManager.authenticate(with: key, onSuccess: { authenticationResponse in
                     if let authToken = authenticationResponse.token, let expireIn = authenticationResponse.expiresIn {
-                        APIManager.setToken(authToken)
+                        SvrfAPIManager.setToken(authToken)
                         _ = SvrfKeyChain.save(key: svrfAuthTokenKey, data: Data(authToken.utf8))
                         UserDefaults.standard.set(getTokenExpireDate(expireIn: expireIn),
                                                   forKey: svrfAuthTokenExpireDateKey)
@@ -124,12 +124,12 @@ public class SvrfSDK: NSObject {
      */
     public static func search(query: String,
                               options: SvrfOptions,
-                              onSuccess success: @escaping (_ mediaArray: [Media], _ nextPageNum: Int?) -> Void,
+                              onSuccess success: @escaping (_ mediaArray: [SvrfMedia], _ nextPageNum: Int?) -> Void,
                               onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
         dispatchGroup.notify(queue: .main) {
 
-            APIManager.search(query: query, options: options, onSuccess: { searchResponse in
+            SvrfAPIManager.search(query: query, options: options, onSuccess: { searchResponse in
                 if let mediaArray = searchResponse.media {
                     success(mediaArray, searchResponse.nextPageNum)
                 } else if let failure = failure {
@@ -162,13 +162,13 @@ public class SvrfSDK: NSObject {
         - error: A *SvrfError*.
      */
     public static func getTrending(options: SvrfOptions?,
-                                   onSuccess success: @escaping (_ mediaArray: [Media],
+                                   onSuccess success: @escaping (_ mediaArray: [SvrfMedia],
         _ nextPageNum: Int?) -> Void,
                                    onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
         dispatchGroup.notify(queue: .main) {
 
-            APIManager.getTrending(options: options, onSuccess: { trendingResponse in
+            SvrfAPIManager.getTrending(options: options, onSuccess: { trendingResponse in
                 if let mediaArray = trendingResponse.media {
                     success(mediaArray, trendingResponse.nextPageNum)
                 } else if let failure = failure {
@@ -196,12 +196,12 @@ public class SvrfSDK: NSObject {
         - error: A *SvrfError*.
      */
     public static func getMedia(identifier: String,
-                                onSuccess success: @escaping (_ media: Media) -> Void,
+                                onSuccess success: @escaping (_ media: SvrfMedia) -> Void,
                                 onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
         dispatchGroup.notify(queue: .main) {
 
-            APIManager.getMedia(by: identifier, onSuccess: { mediaResponse in
+            SvrfAPIManager.getMedia(by: identifier, onSuccess: { mediaResponse in
                 if let media = mediaResponse.media {
                     success(media)
                 } else if let failure = failure {
@@ -229,7 +229,7 @@ public class SvrfSDK: NSObject {
         - failure: Error closure.
         - error: A *SvrfError*.
      */
-    public static func generateNode(for media: Media,
+    public static func generateNode(for media: SvrfMedia,
                                     onSuccess success: @escaping (_ node: SCNNode) -> Void,
                                     onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
@@ -285,7 +285,7 @@ public class SvrfSDK: NSObject {
         - failure: Error closure.
         - error: A *SvrfError*.
      */
-    public static func generateFaceFilterNode(for media: Media,
+    public static func generateFaceFilterNode(for media: SvrfMedia,
                                               onSuccess success: @escaping (_ faceFilterNode: SCNNode) -> Void,
                                               onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
@@ -328,7 +328,7 @@ public class SvrfSDK: NSObject {
             - media: The *Media* to return a *SCNScene* from.
          - Returns: SCNScene?
          */
-        private static func getSceneFromMedia(media: Media) -> SCNScene? {
+        private static func getSceneFromMedia(media: SvrfMedia) -> SCNScene? {
 
             if let glbUrlString = media.files?.glb {
                 if let glbUrl = URL(string: glbUrlString) {

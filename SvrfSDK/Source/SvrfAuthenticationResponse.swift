@@ -1,4 +1,4 @@
-struct AuthenticationResponse: Codable {
+struct SvrfAuthenticationResponse: Codable {
     let success: Bool?
     let message: String?
     let token: String?

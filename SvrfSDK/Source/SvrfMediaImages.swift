@@ -1,4 +1,4 @@
-public struct MediaImages: Codable {
+public struct SvrfMediaImages: Codable {
 
     /** 136px wide image. This image may be used for thumbnailing. */
     public let _136: String?
