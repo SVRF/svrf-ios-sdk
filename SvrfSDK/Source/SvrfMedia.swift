@@ -1,3 +1,11 @@
+//
+//  SvrfMedia.swift
+//  SvrfSDK
+//
+//  Created by Andrei Evstratenko on 28/05/2019.
+//  Copyright © 2019 Svrf, Inc. All rights reserved.
+//
+
 public struct SvrfMedia: Codable {
     /** Whether the Media is adult content */
     public let adult: Bool?

@@ -1,3 +1,11 @@
+//
+//  SvrfMediaMetadata.swift
+//  SvrfSDK
+//
+//  Created by Andrei Evstratenko on 28/05/2019.
+//  Copyright © 2019 Svrf, Inc. All rights reserved.
+//
+
 public struct SvrfMediaMetadata: Codable {
 
     /** For 3D Media, denotes that this model contains blend shapes, but having to calculate and apply weights

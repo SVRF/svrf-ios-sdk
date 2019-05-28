@@ -1,3 +1,11 @@
+//
+//  SvrfMediaVideos.swift
+//  SvrfSDK
+//
+//  Created by Andrei Evstratenko on 28/05/2019.
+//  Copyright © 2019 Svrf, Inc. All rights reserved.
+//
+
 public struct SvrfMediaVideos: Codable {
 
     /** 848px wide video with a 1.3MBps video rate, 96KBps audio rate. */
