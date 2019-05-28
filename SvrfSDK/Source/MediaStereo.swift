@@ -1,21 +1,30 @@
-struct MediaStereo: Codable {
+public struct MediaStereo: Codable {
 
     /** 848px wide video with a 1.3MBps video rate, 96KBps audio rate.
      Only included if the Media is a &#x60;video&#x60;. */
-    let _848: String?
+    public let _848: String?
     /** 1440px wide video with a 4.4MBps video rate, 128KBps audio rate.
      Only included if the Media is a &#x60;video&#x60;. */
-    let _1440: String?
+    public let _1440: String?
     /** 2160px wide video with a 10MBps video rate, 192KBps audio rate.
      Only included if the Media is a &#x60;video&#x60;. */
-    let _2160: String?
+    public let _2160: String?
     /** 4096px wide image. This image should be used on mobile devices,
      as larger images may cause some devices to crash. Only included if the Media is a &#x60;photo&#x60;. */
-    let _4096: String?
+    public let _4096: String?
     /** URL for an HLS master playlist containing streams in all of
      the above resolutions which are no wider than the original Media.
      Only included if the Media is a &#x60;video&#x60;. */
-    let hls: String?
+    public let hls: String?
     /** The Media in its largest available size (the original size). */
-    let max: String?
+    public let max: String?
+
+    private enum CodingKeys: String, CodingKey {
+        case _848 = "848"
+        case _1440 = "1440"
+        case _2160 = "2160"
+        case _4096 = "4096"
+        case hls
+        case max
+    }
 }
