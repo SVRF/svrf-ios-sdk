@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SVRFClient
 import SvrfGLTFSceneKit
 import Analytics
 import SceneKit
@@ -49,7 +48,7 @@ public class SvrfSDK: NSObject {
 
         if !needUpdateToken() {
             let authToken = String(data: (SvrfKeyChain.load(key: svrfAuthTokenKey))!, encoding: .utf8)!
-            SVRFClientAPI.customHeaders = [svrfXAppTokenKey: authToken]
+            APIManager.setToken(authToken)
 
             if let success = success {
                 success()
@@ -70,24 +69,12 @@ public class SvrfSDK: NSObject {
             }
 
             if let key = key {
-                let body = Body(apiKey: key)
-                AuthenticateAPI.authenticate(body: body) { (authResponse, error) in
-
-                    if error != nil {
-                        if let failure = failure {
-                            failure(SvrfError(svrfDescription: SvrfErrorDescription.response.rawValue))
-                        }
-
-                        dispatchGroup.leave()
-
-                        return
-                    }
-
-                    if let authToken = authResponse?.token, let expireIn = authResponse?.expiresIn {
+                APIManager.authenticate(with: key, onSuccess: { authenticationResponse in
+                    if let authToken = authenticationResponse.token, let expireIn = authenticationResponse.expiresIn {
+                        APIManager.setToken(authToken)
                         _ = SvrfKeyChain.save(key: svrfAuthTokenKey, data: Data(authToken.utf8))
                         UserDefaults.standard.set(getTokenExpireDate(expireIn: expireIn),
                                                   forKey: svrfAuthTokenExpireDateKey)
-                        SVRFClientAPI.customHeaders = [svrfXAppTokenKey: authToken]
 
                         if let success = success {
                             success()
@@ -105,13 +92,16 @@ public class SvrfSDK: NSObject {
 
                         return
                     }
-                }
-            } else {
-                if let failure = failure {
-                    failure(SvrfError(svrfDescription: SvrfErrorDescription.Auth.apiKey.rawValue))
-                }
+                }, onFailure: { error in
+                    if let failure = failure, var error = error as? SvrfError {
+                        error.svrfDescription = SvrfErrorDescription.response.rawValue
+                        failure(error)
+                    }
 
-                dispatchGroup.leave()
+                    dispatchGroup.leave()
+
+                    return
+                })
             }
         }
     }
@@ -133,37 +123,27 @@ public class SvrfSDK: NSObject {
         - error: A *SvrfError*.
      */
     public static func search(query: String,
-                              options: SearchOptions,
+                              options: SvrfOptions,
                               onSuccess success: @escaping (_ mediaArray: [Media], _ nextPageNum: Int?) -> Void,
                               onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
         dispatchGroup.notify(queue: .main) {
 
-            MediaAPI.search(q: query,
-                            type: options.type,
-                            stereoscopicType: options.stereoscopicType,
-                            category: options.category,
-                            size: options.size,
-                            minimumWidth: options.minimumWidth,
-                            pageNum: options.pageNum,
-                            isFaceFilter: options.isFaceFilter,
-                            hasBlendShapes: options.hasBlendShapes,
-                            requiresBlendShapes: options.requiresBlendShapes,
-                            completion: { (searchMediaResponse, error) in
-
-                if let error = error {
-                    if let failure = failure, var svrfError = error as? SvrfError {
-                        svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
-                        failure(svrfError)
-                    }
-                } else {
-                    if let mediaArray = searchMediaResponse?.media {
-                        success(mediaArray, searchMediaResponse?.nextPageNum)
-                    } else if let failure = failure {
-                        failure(SvrfError(svrfDescription: SvrfErrorDescription.responseNoMediaArray.rawValue))
-                    }
+            APIManager.search(query: query, options: options, onSuccess: { searchResponse in
+                if let mediaArray = searchResponse.media {
+                    success(mediaArray, searchResponse.nextPageNum)
+                } else if let failure = failure {
+                    failure(SvrfError(svrfDescription: SvrfErrorDescription.responseNoMediaArray.rawValue))
                 }
+
+            }, onFailure: { error in
+                if let failure = failure, var svrfError = error as? SvrfError {
+                    svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
+                    failure(svrfError)
+                }
+
             })
+
         }
     }
 
@@ -181,36 +161,26 @@ public class SvrfSDK: NSObject {
         - failure: Error closure.
         - error: A *SvrfError*.
      */
-    public static func getTrending(options: TrendingOptions?,
+    public static func getTrending(options: SvrfOptions?,
                                    onSuccess success: @escaping (_ mediaArray: [Media],
         _ nextPageNum: Int?) -> Void,
                                    onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
         dispatchGroup.notify(queue: .main) {
 
-            MediaAPI.getTrending(type: options?.type,
-                                 stereoscopicType: options?.stereoscopicType,
-                                 category: options?.category,
-                                 size: options?.size,
-                                 minimumWidth: options?.minimumWidth,
-                                 pageNum: options?.pageNum,
-                                 isFaceFilter: options?.isFaceFilter,
-                                 hasBlendShapes: options?.hasBlendShapes,
-                                 requiresBlendShapes: options?.requiresBlendShapes,
-                                 completion: { (trendingResponse, error) in
-
-                if let error = error {
-                    if let failure = failure, var svrfError = error as? SvrfError {
-                        svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
-                        failure(svrfError)
-                    }
-                } else {
-                    if let mediaArray = trendingResponse?.media {
-                        success(mediaArray, trendingResponse?.nextPageNum)
-                    } else if let failure = failure {
-                        failure(SvrfError(svrfDescription: SvrfErrorDescription.responseNoMediaArray.rawValue))
-                    }
+            APIManager.getTrending(options: options, onSuccess: { trendingResponse in
+                if let mediaArray = trendingResponse.media {
+                    success(mediaArray, trendingResponse.nextPageNum)
+                } else if let failure = failure {
+                    failure(SvrfError(svrfDescription: SvrfErrorDescription.responseNoMediaArray.rawValue))
                 }
+
+            }, onFailure: { error in
+                if let failure = failure, var svrfError = error as? SvrfError {
+                    svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
+                    failure(svrfError)
+                }
+
             })
         }
     }
@@ -231,20 +201,18 @@ public class SvrfSDK: NSObject {
 
         dispatchGroup.notify(queue: .main) {
 
-            MediaAPI.getById(id: identifier, completion: { (singleMediaResponse, error) in
-
-                if let error = error {
-                    if let failure = failure, var svrfError = error as? SvrfError {
-                        svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
-                        failure(svrfError)
-                    }
-                } else {
-                    if let media = singleMediaResponse?.media {
-                        success(media)
-                    } else if let failure = failure {
-                        failure(SvrfError(svrfDescription: SvrfErrorDescription.response.rawValue))
-                    }
+            APIManager.getMedia(by: identifier, onSuccess: { mediaResponse in
+                if let media = mediaResponse.media {
+                    success(media)
+                } else if let failure = failure {
+                    failure(SvrfError(svrfDescription: SvrfErrorDescription.response.rawValue))
                 }
+            }, onFailure: { error in
+                if let failure = failure, var svrfError = error as? SvrfError {
+                    svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
+                    failure(svrfError)
+                }
+
             })
         }
     }
@@ -289,7 +257,8 @@ public class SvrfSDK: NSObject {
         - faceFilter: The node with morph targets.
      */
 
-    public static func setBlendShapes(blendShapes: [ARFaceAnchor.BlendShapeLocation: NSNumber], for faceFilter: SCNNode) {
+    public static func setBlendShapes(blendShapes: [ARFaceAnchor.BlendShapeLocation: NSNumber],
+                                      for faceFilter: SCNNode) {
 
         DispatchQueue.main.async {
             faceFilter.enumerateHierarchy({ (node, _) in
@@ -317,8 +286,8 @@ public class SvrfSDK: NSObject {
         - error: A *SvrfError*.
      */
     public static func generateFaceFilterNode(for media: Media,
-                                     onSuccess success: @escaping (_ faceFilterNode: SCNNode) -> Void,
-                                     onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
+                                              onSuccess success: @escaping (_ faceFilterNode: SCNNode) -> Void,
+                                              onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
             if media.type == ._3d, let glbUrlString = media.files?.glb, let glbUrl = URL(string: glbUrlString) {
                 let modelSource = GLTFSceneSource(url: glbUrl)
@@ -327,7 +296,8 @@ public class SvrfSDK: NSObject {
                     let faceFilterNode = SCNNode()
                     let sceneNode = try modelSource.scene().rootNode
 
-                    if let occluderNode = sceneNode.childNode(withName: ChildNode.occluder.rawValue, recursively: true) {
+                    if let occluderNode = sceneNode.childNode(withName: ChildNode.occluder.rawValue,
+                                                              recursively: true) {
                         faceFilterNode.addChildNode(occluderNode)
                         setOccluderNode(node: occluderNode)
                     }

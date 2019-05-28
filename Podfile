@@ -4,9 +4,9 @@
 target 'SvrfSDK' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-  pod 'SVRFClient', '~> 1.6.0'
   pod 'SvrfGLTFSceneKit', '~> 1.0'
   pod 'Analytics', '~> 3.0'
+  pod 'Alamofire', '~> 4.8.2'
 
   # Pods for SvrfSDK
 

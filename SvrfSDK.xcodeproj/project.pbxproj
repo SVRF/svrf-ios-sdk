@@ -29,7 +29,20 @@
 		EC1EF182219A11F6006F12B0 /* SvrfSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1EF181219A11F6006F12B0 /* SvrfSDK.swift */; };
 		EC6F42F621F1D2CA00F7FD17 /* SvrfKeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6F42F521F1D2CA00F7FD17 /* SvrfKeyChain.swift */; };
 		EC75A3CE219AAD23003C1108 /* SvrfError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC75A3CC219AAD23003C1108 /* SvrfError.swift */; };
-		EC87A0EE21C1250B00FED9BE /* SvrfOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC87A0ED21C1250B00FED9BE /* SvrfOptions.swift */; };
+		ECBD383B229D11820013B4A8 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBD382B229D11820013B4A8 /* Enums.swift */; };
+		ECBD383C229D11820013B4A8 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBD382C229D11820013B4A8 /* APIManager.swift */; };
+		ECBD383D229D11820013B4A8 /* MediaVideos.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBD382E229D11820013B4A8 /* MediaVideos.swift */; };
+		ECBD383E229D11820013B4A8 /* AuthenticationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBD3830229D11820013B4A8 /* AuthenticationResponse.swift */; };
+		ECBD383F229D11820013B4A8 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBD3831229D11820013B4A8 /* SearchResponse.swift */; };
+		ECBD3840229D11820013B4A8 /* TrendingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBD3832229D11820013B4A8 /* TrendingResponse.swift */; };
+		ECBD3841229D11820013B4A8 /* MediaResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBD3833229D11820013B4A8 /* MediaResponse.swift */; };
+		ECBD3842229D11820013B4A8 /* MediaMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBD3834229D11820013B4A8 /* MediaMetadata.swift */; };
+		ECBD3843229D11820013B4A8 /* MediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBD3835229D11820013B4A8 /* MediaType.swift */; };
+		ECBD3844229D11820013B4A8 /* MediaStereo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBD3836229D11820013B4A8 /* MediaStereo.swift */; };
+		ECBD3845229D11820013B4A8 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBD3837229D11820013B4A8 /* Media.swift */; };
+		ECBD3846229D11820013B4A8 /* MediaFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBD3838229D11820013B4A8 /* MediaFiles.swift */; };
+		ECBD3847229D11820013B4A8 /* MediaImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBD3839229D11820013B4A8 /* MediaImages.swift */; };
+		ECBD3848229D11820013B4A8 /* SvrfOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBD383A229D11820013B4A8 /* SvrfOptions.swift */; };
 		ECFE7EB421B7F9EB00A2FB93 /* SvrfJWTDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFE7EB321B7F9EB00A2FB93 /* SvrfJWTDecoder.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,7 +72,20 @@
 		EC1EF181219A11F6006F12B0 /* SvrfSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SvrfSDK.swift; sourceTree = "<group>"; };
 		EC6F42F521F1D2CA00F7FD17 /* SvrfKeyChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfKeyChain.swift; sourceTree = "<group>"; };
 		EC75A3CC219AAD23003C1108 /* SvrfError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfError.swift; sourceTree = "<group>"; };
-		EC87A0ED21C1250B00FED9BE /* SvrfOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SvrfOptions.swift; sourceTree = "<group>"; };
+		ECBD382B229D11820013B4A8 /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		ECBD382C229D11820013B4A8 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		ECBD382E229D11820013B4A8 /* MediaVideos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaVideos.swift; sourceTree = "<group>"; };
+		ECBD3830229D11820013B4A8 /* AuthenticationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationResponse.swift; sourceTree = "<group>"; };
+		ECBD3831229D11820013B4A8 /* SearchResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
+		ECBD3832229D11820013B4A8 /* TrendingResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingResponse.swift; sourceTree = "<group>"; };
+		ECBD3833229D11820013B4A8 /* MediaResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaResponse.swift; sourceTree = "<group>"; };
+		ECBD3834229D11820013B4A8 /* MediaMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaMetadata.swift; sourceTree = "<group>"; };
+		ECBD3835229D11820013B4A8 /* MediaType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaType.swift; sourceTree = "<group>"; };
+		ECBD3836229D11820013B4A8 /* MediaStereo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaStereo.swift; sourceTree = "<group>"; };
+		ECBD3837229D11820013B4A8 /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
+		ECBD3838229D11820013B4A8 /* MediaFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaFiles.swift; sourceTree = "<group>"; };
+		ECBD3839229D11820013B4A8 /* MediaImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaImages.swift; sourceTree = "<group>"; };
+		ECBD383A229D11820013B4A8 /* SvrfOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfOptions.swift; sourceTree = "<group>"; };
 		ECFE7EB321B7F9EB00A2FB93 /* SvrfJWTDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvrfJWTDecoder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,13 +172,50 @@
 		EC75A3CF219AAEF6003C1108 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				ECBD382A229D11820013B4A8 /* APIManager */,
 				EC6F42F521F1D2CA00F7FD17 /* SvrfKeyChain.swift */,
 				ECFE7EB321B7F9EB00A2FB93 /* SvrfJWTDecoder.swift */,
 				EC75A3CC219AAD23003C1108 /* SvrfError.swift */,
 				EC1EF181219A11F6006F12B0 /* SvrfSDK.swift */,
-				EC87A0ED21C1250B00FED9BE /* SvrfOptions.swift */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		ECBD382A229D11820013B4A8 /* APIManager */ = {
+			isa = PBXGroup;
+			children = (
+				ECBD382B229D11820013B4A8 /* Enums.swift */,
+				ECBD382C229D11820013B4A8 /* APIManager.swift */,
+				ECBD382D229D11820013B4A8 /* Models */,
+				ECBD383A229D11820013B4A8 /* SvrfOptions.swift */,
+			);
+			path = APIManager;
+			sourceTree = "<group>";
+		};
+		ECBD382D229D11820013B4A8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				ECBD382E229D11820013B4A8 /* MediaVideos.swift */,
+				ECBD382F229D11820013B4A8 /* Responses */,
+				ECBD3834229D11820013B4A8 /* MediaMetadata.swift */,
+				ECBD3835229D11820013B4A8 /* MediaType.swift */,
+				ECBD3836229D11820013B4A8 /* MediaStereo.swift */,
+				ECBD3837229D11820013B4A8 /* Media.swift */,
+				ECBD3838229D11820013B4A8 /* MediaFiles.swift */,
+				ECBD3839229D11820013B4A8 /* MediaImages.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		ECBD382F229D11820013B4A8 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				ECBD3830229D11820013B4A8 /* AuthenticationResponse.swift */,
+				ECBD3831229D11820013B4A8 /* SearchResponse.swift */,
+				ECBD3832229D11820013B4A8 /* TrendingResponse.swift */,
+				ECBD3833229D11820013B4A8 /* MediaResponse.swift */,
+			);
+			path = Responses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,7 +260,6 @@
 				EC1EF16C219A1189006F12B0 /* Sources */,
 				EC1EF16D219A1189006F12B0 /* Frameworks */,
 				EC1EF16E219A1189006F12B0 /* Resources */,
-				888409EE90AB23F601EEE0A7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -290,34 +352,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		888409EE90AB23F601EEE0A7 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SvrfSDKTests/Pods-SvrfSDKTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Analytics/Analytics.framework",
-				"${BUILT_PRODUCTS_DIR}/SVRFClient/SVRFClient.framework",
-				"${BUILT_PRODUCTS_DIR}/SvrfGLTFSceneKit/SvrfGLTFSceneKit.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Analytics.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVRFClient.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SvrfGLTFSceneKit.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SvrfSDKTests/Pods-SvrfSDKTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		E524FF7C5767E1DB2AE53EBA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -382,10 +416,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC1EF182219A11F6006F12B0 /* SvrfSDK.swift in Sources */,
-				EC87A0EE21C1250B00FED9BE /* SvrfOptions.swift in Sources */,
+				ECBD383E229D11820013B4A8 /* AuthenticationResponse.swift in Sources */,
+				ECBD3846229D11820013B4A8 /* MediaFiles.swift in Sources */,
 				EC75A3CE219AAD23003C1108 /* SvrfError.swift in Sources */,
+				ECBD3844229D11820013B4A8 /* MediaStereo.swift in Sources */,
+				ECBD3847229D11820013B4A8 /* MediaImages.swift in Sources */,
 				ECFE7EB421B7F9EB00A2FB93 /* SvrfJWTDecoder.swift in Sources */,
+				ECBD3845229D11820013B4A8 /* Media.swift in Sources */,
+				ECBD3841229D11820013B4A8 /* MediaResponse.swift in Sources */,
+				ECBD3843229D11820013B4A8 /* MediaType.swift in Sources */,
+				ECBD383B229D11820013B4A8 /* Enums.swift in Sources */,
+				ECBD383F229D11820013B4A8 /* SearchResponse.swift in Sources */,
+				ECBD3840229D11820013B4A8 /* TrendingResponse.swift in Sources */,
 				EC6F42F621F1D2CA00F7FD17 /* SvrfKeyChain.swift in Sources */,
+				ECBD3848229D11820013B4A8 /* SvrfOptions.swift in Sources */,
+				ECBD383D229D11820013B4A8 /* MediaVideos.swift in Sources */,
+				ECBD383C229D11820013B4A8 /* APIManager.swift in Sources */,
+				ECBD3842229D11820013B4A8 /* MediaMetadata.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
