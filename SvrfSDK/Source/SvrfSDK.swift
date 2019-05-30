@@ -12,8 +12,6 @@ import Analytics
 import SceneKit
 import ARKit
 
-//public typealias SvrfMedia = SvrfMedia
-
 private enum ChildNode: String {
     case head = "Head"
     case occluder = "Occluder"
