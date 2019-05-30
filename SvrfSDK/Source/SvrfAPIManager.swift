@@ -53,7 +53,7 @@ class SvrfAPIManager {
 
         let path = "/vr/\(identifier)"
 
-        if let request = prepareRequest(with: path, parameters: nil) {
+        if let request = getRequest(with: path, parameters: nil) {
             request.responseJSON { response in
 
                 if let jsonData = response.data {
@@ -88,7 +88,7 @@ class SvrfAPIManager {
                           "hasBlendShapes": options?.hasBlendShapes,
                           "requiresBlendShapes": options?.requiresBlendShapes]
 
-        if let request = prepareRequest(with: path, parameters: parameters) {
+        if let request = getRequest(with: path, parameters: parameters) {
             request.responseJSON { response in
 
                 if let jsonData = response.data {
@@ -125,7 +125,7 @@ class SvrfAPIManager {
                                           "requiresBlendShapes": options?.requiresBlendShapes,
                                           "q": query]
 
-        if let request = prepareRequest(with: path, parameters: parameters) {
+        if let request = getRequest(with: path, parameters: parameters) {
             request.responseJSON { response in
 
                 if let jsonData = response.data {
@@ -146,7 +146,7 @@ class SvrfAPIManager {
     }
 
     // MARK: private functions
-    static private func prepareRequest(with endPoint: String,
+    static private func getRequest(with endPoint: String,
                                        parameters: [String: Any?]?) -> DataRequest? {
 
         guard let xAppToken = self.xAppToken else {

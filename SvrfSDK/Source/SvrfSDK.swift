@@ -133,7 +133,6 @@ public class SvrfSDK: NSObject {
                 } else if let failure = failure {
                     failure(SvrfError(svrfDescription: SvrfErrorDescription.responseNoMediaArray.rawValue))
                 }
-
             }, onFailure: { error in
                 if let failure = failure, var svrfError = error as? SvrfError {
                     svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
