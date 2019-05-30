@@ -52,29 +52,24 @@ class SvrfAPIManager {
                          onFailure failure: @escaping (_ error: Error?) -> Void) {
 
         let path = "/vr/\(identifier)"
-        let urlString = baseURL + path
 
-        let header = ["x-app-token": xAppToken ?? "",
-                      "accept": "application/json"]
+        if let request = prepareRequest(with: path, parameters: nil) {
+            request.responseJSON { response in
 
-        let request = Alamofire.request(urlString,
-                                        method: .get,
-                                        parameters: nil,
-                                        encoding: JSONEncoding.default,
-                                        headers: header)
-        request.responseJSON { response in
+                if let jsonData = response.data {
 
-            if let jsonData = response.data {
+                    do {
+                        let decoder = JSONDecoder()
+                        let mediaResponse = try decoder.decode(SvrfMediaResponse.self, from: jsonData)
 
-                do {
-                    let decoder = JSONDecoder()
-                    let mediaResponse = try decoder.decode(SvrfMediaResponse.self, from: jsonData)
-
-                    success(mediaResponse)
-                } catch let error {
-                    failure(error)
+                        success(mediaResponse)
+                    } catch let error {
+                        failure(error)
+                    }
                 }
             }
+        } else {
+            failure(nil)
         }
     }
 
@@ -83,10 +78,6 @@ class SvrfAPIManager {
                             onFailure failure: @escaping (_ error: Error?) -> Void) {
 
         let path = "/vr/trending"
-        let urlString = baseURL + path
-
-        let header = ["x-app-token": xAppToken ?? "",
-                      "accept": "application/json"]
         let parameters: [String: Any?] = ["type": options?.type?.map { $0.rawValue }.joined(),
                           "stereoscopicType": options?.stereoscopicType?.rawValue,
                           "category": options?.category?.rawValue,
@@ -97,28 +88,23 @@ class SvrfAPIManager {
                           "hasBlendShapes": options?.hasBlendShapes,
                           "requiresBlendShapes": options?.requiresBlendShapes]
 
-        var url = URLComponents(string: urlString)
-        url?.queryItems = mapValuesToQueryItems(values: parameters)
+        if let request = prepareRequest(with: path, parameters: parameters) {
+            request.responseJSON { response in
 
-        let request = Alamofire.request(url ?? urlString,
-                                        method: .get,
-                                        parameters: nil,
-                                        encoding: JSONEncoding.default,
-                                        headers: header)
+                if let jsonData = response.data {
 
-        request.responseJSON { response in
+                    do {
+                        let decoder = JSONDecoder()
+                        let trendingResponse = try decoder.decode(SvrfTrendingResponse.self, from: jsonData)
 
-            if let jsonData = response.data {
-
-                do {
-                    let decoder = JSONDecoder()
-                    let trendingResponse = try decoder.decode(SvrfTrendingResponse.self, from: jsonData)
-
-                    success(trendingResponse)
-                } catch let error {
-                    failure(error)
+                        success(trendingResponse)
+                    } catch let error {
+                        failure(error)
+                    }
                 }
             }
+        } else {
+            failure(nil)
         }
     }
 
@@ -128,10 +114,6 @@ class SvrfAPIManager {
                        onFailure failure: @escaping (_ error: Error?) -> Void) {
 
         let path = "/vr/search"
-        let urlString = baseURL + path
-
-        let header = ["x-app-token": xAppToken ?? "",
-                      "accept": "application/json"]
         let parameters: [String: Any?] = ["type": options?.type?.map { $0.rawValue }.joined(),
                                           "stereoscopicType": options?.stereoscopicType?.rawValue,
                                           "category": options?.category?.rawValue,
@@ -142,28 +124,54 @@ class SvrfAPIManager {
                                           "hasBlendShapes": options?.hasBlendShapes,
                                           "requiresBlendShapes": options?.requiresBlendShapes,
                                           "q": query]
-        var url = URLComponents(string: urlString)
-        url?.queryItems = mapValuesToQueryItems(values: parameters)
 
-        let request = Alamofire.request(url ?? urlString,
-                                        method: .get,
-                                        parameters: nil,
-                                        encoding: JSONEncoding.default,
-                                        headers: header)
-        request.responseJSON { response in
+        if let request = prepareRequest(with: path, parameters: parameters) {
+            request.responseJSON { response in
 
-            if let jsonData = response.data {
+                if let jsonData = response.data {
 
-                do {
-                    let decoder = JSONDecoder()
-                    let searchResponse = try decoder.decode(SvrfSearchResponse.self, from: jsonData)
+                    do {
+                        let decoder = JSONDecoder()
+                        let searchResponse = try decoder.decode(SvrfSearchResponse.self, from: jsonData)
 
-                    success(searchResponse)
-                } catch let error {
-                    failure(error)
+                        success(searchResponse)
+                    } catch let error {
+                        failure(error)
+                    }
                 }
             }
+        } else {
+            failure(nil)
         }
+    }
+
+    // MARK: private functions
+    static private func prepareRequest(with endPoint: String,
+                                       parameters: [String: Any?]?) -> DataRequest? {
+
+        guard let xAppToken = self.xAppToken else {
+            return nil
+        }
+
+        let urlString = baseURL + endPoint
+        let header = ["x-app-token": xAppToken,
+                      "accept": "application/json"]
+        var urlComponents = URLComponents(string: urlString)
+
+        if let parameters = parameters {
+            urlComponents?.queryItems = mapValuesToQueryItems(values: parameters)
+        }
+
+        guard let url = urlComponents else {
+            return nil
+        }
+
+        return Alamofire.request(url,
+                                 method: .get,
+                                 parameters: nil,
+                                 encoding: JSONEncoding.default,
+                                 headers: header)
+
     }
 
     static private func mapValuesToQueryItems(values: [String: Any?]) -> [URLQueryItem]? {
