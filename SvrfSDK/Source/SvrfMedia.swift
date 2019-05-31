@@ -7,9 +7,10 @@
 //
 
 public struct SvrfMedia: Codable {
+
     /** Whether the Media is adult content */
     public let adult: Bool?
-    /** The Media&#39;s authors. This should be displayed when possible. */
+    /** The Media's authors. This should be displayed when possible. */
     public let authors: [String]?
     /** The canonical page this Media can be found at via SVRF. */
     public let canonical: String?
@@ -17,12 +18,13 @@ public struct SvrfMedia: Codable {
     public let description: String?
     /** The duration of the Media in seconds. */
     public let duration: Double?
-    /** An &#x60;&lt;iframe&gt;&#x60; tag that embeds a player that plays the Media. */
+    /** An <iframe> tag that embeds a player that plays the Media.. */
     public let embedHtml: String?
-    /** A player that can be embedded using an &#x60;&lt;iframe&gt;&#x60; tag to play the Media. */
+    /** A player that can be embedded using an <iframe> tag to play the Media. */
     public let embedUrl: String?
+    /** Various sizes of images and resolutions for the Media. They will never be larger than the Media source's original resolution. */
     public let files: SvrfMediaFiles?
-    /** The height, in pixels, of the Media&#39;s source */
+    /** The height, in pixels, of the Media's source */
     public let height: Double?
     /** The unique ID of this Media */
     public let id: String?
@@ -31,6 +33,7 @@ public struct SvrfMedia: Codable {
     public let site: String?
     /** The title of the Media, suitable for displaying */
     public let title: String?
+    /** SvrfMediaType */
     public let type: SvrfMediaType?
     /** The original page this Media is located at. */
     public let url: String?

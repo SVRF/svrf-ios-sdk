@@ -31,7 +31,7 @@ public struct SvrfMediaImages: Codable {
     /** A 1:1 image. This image may be used for thumbnailing. */
     public let _720x720: String?
     /** The image in its largest available size (the original size). This image should be used in
-     third-party applications for the best experience, except on mobile devices (see &#x60;4096&#x60;). */
+     third-party applications for the best experience, except on mobile devices (see _4096). */
     public let max: String?
 
     private enum CodingKeys: String, CodingKey {

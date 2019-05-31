@@ -18,7 +18,10 @@ public struct SvrfMediaFiles: Codable {
     /** A map of file names to urls where those files are hosted. The file names are relative
      and their name heirarchy should be respected when saving them locally. */
     public let gltf: [String: String]?
+    /** SvrfMediaImages */
     public let images: SvrfMediaImages?
+    /** SvrfMediaStereo */
     public let stereo: SvrfMediaStereo?
+    /** SvrfMediaVideos */
     public let videos: SvrfMediaVideos?
 }

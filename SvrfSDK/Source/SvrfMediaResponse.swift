@@ -6,7 +6,11 @@
 //  Copyright © 2019 Svrf, Inc. All rights reserved.
 //
 
+/** If the request was successful */
 struct SvrfMediaResponse: Codable {
+
+    /** If the request was successful */
     let success: Bool?
+    /** SvrfMedia */
     let media: SvrfMedia?
 }

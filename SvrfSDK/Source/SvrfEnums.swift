@@ -7,11 +7,17 @@
 //
 
 public enum SvrfStereoscopicType: String {
+
+    /** none stereoscopic type */
     case none = "none"
+    /** none top-bottom type */
     case topBottom = "top-bottom"
+    /** none left-right type */
     case leftRight = "left-right"
 }
 
 public enum SvrfCategory: String {
+
+    /** FaceFilters category */
     case filters = "Face Filters"
 }
