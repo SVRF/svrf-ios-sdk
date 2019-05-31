@@ -171,7 +171,6 @@ class SvrfAPIManager {
                                  parameters: nil,
                                  encoding: JSONEncoding.default,
                                  headers: header)
-
     }
 
     static private func mapValuesToQueryItems(values: [String: Any?]) -> [URLQueryItem]? {
