@@ -112,7 +112,7 @@ SvrfSDK.authenticate()
 | onSuccess                     | *(_ mediaArray: [Media]) -> Void*               |
 | onFailure                     | *((_ error: SvrfError) -> Void)?*               |
 
-**Returns:** *[Media]?*
+**Returns:** *DataRequest?*
 
 #### Example
 
@@ -146,7 +146,7 @@ SvrfSDK.search(query: "Five Eyes", options: options, onSuccess: { mediaArray in
 | onSuccess                     | *(_ mediaArray: [Media]) -> Void*               |
 | onFailure                     | *((_ error: SvrfError) -> Void)?*               |
 
-**Returns:** *[Media]?*
+**Returns:** *DataRequest?*
 
 #### Example
 
@@ -180,7 +180,7 @@ Fetch *Media* by ID.
 | onSuccess                     | *(_ media: Media) -> Void*                      |
 | onFailure                     | *((_ error: SvrfError) -> Void)?*               |
 
-**Returns:** *Media?*
+**Returns:** *DataRequest?*
 
 #### Example
 
