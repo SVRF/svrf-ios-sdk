@@ -108,7 +108,7 @@ SvrfSDK.authenticate()
 | Parameter                     | Type                                            |
 | :---                          | :---                                            |
 | query                         | *String*                                        |
-| searchOptions                 | *SearchOptions*                                 |
+| options                       | *SvrfOptions*                                   |
 | onSuccess                     | *(_ mediaArray: [Media]) -> Void*               |
 | onFailure                     | *((_ error: SvrfError) -> Void)?*               |
 
@@ -119,9 +119,9 @@ SvrfSDK.authenticate()
 Search "Five Eyes" face filter; limited by "_3d" *type* and "Face Filters" *category*.
 
 ```swift
-let searchOptions = SearchOptions(type: [._3d], stereoscopicType: nil, category: nil, size: nil, pageNum: nil)
+let options = SvrfOptions(type: [._3d], stereoscopicType: nil, category: nil, size: nil, pageNum: nil)
 
-SvrfSDK.search(query: "Five Eyes", options: searchOptions, onSuccess: { mediaArray in
+SvrfSDK.search(query: "Five Eyes", options: options, onSuccess: { mediaArray in
     if !mediaArray.isEmpty {
         // Do what you want with the Media[]
         self.searchCollectionView.setupWith(mediaArray: mediaArray)
@@ -142,7 +142,7 @@ SvrfSDK.search(query: "Five Eyes", options: searchOptions, onSuccess: { mediaArr
 
 | Parameter                     | Type                                            |
 | :---                          | :---                                            |
-| trendingOptions               | *TrendingOptions*                               |
+| options                       | *SvrfOptions*                                   |
 | onSuccess                     | *(_ mediaArray: [Media]) -> Void*               |
 | onFailure                     | *((_ error: SvrfError) -> Void)?*               |
 
@@ -153,9 +153,9 @@ SvrfSDK.search(query: "Five Eyes", options: searchOptions, onSuccess: { mediaArr
 Get trending *Media*; limited by "video" *type*.
 
 ```swift
-let trendingOptions = TrendingOptions(type: [.video], stereoscopicType: nil, category: nil, size: nil, nextPageCursor: nil)
+let options = SvrfOptions(type: [.video], stereoscopicType: nil, category: nil, size: nil, nextPageCursor: nil)
 
-SvrfSDK.getTrending(options: trendingOptions, onSuccess: { mediaArray in
+SvrfSDK.getTrending(options: options, onSuccess: { mediaArray in
     if !mediaArray.isEmpty {
         // Do what you want with the Media[]
         self.searchCollectionView.setupWith(mediaArray: mediaArray)
@@ -176,7 +176,7 @@ Fetch *Media* by ID.
 
 | Parameter                     | Type                                            |
 | :---                          | :---                                            |
-| id                            | *String*                                        |
+| identifier                    | *String*                                        |
 | onSuccess                     | *(_ media: Media) -> Void*                      |
 | onFailure                     | *((_ error: SvrfError) -> Void)?*               |
 
@@ -187,7 +187,7 @@ Fetch *Media* by ID.
 Get *Media* with ID "547963".
 
 ```swift
-SvrfSDK.getMedia(id: "547963", onSuccess: { media in
+SvrfSDK.getMedia(identifier: "547963", onSuccess: { media in
     //Do what you want with the Media
     self.mediaTitleLabel.text = media.title ?? "unknown"
 }) { error in
