@@ -69,7 +69,7 @@ class SvrfAPIManager {
                 }
             }
         } else {
-            failure(nil)
+            failure(SvrfError(svrfDescription: SvrfErrorDescription.noToken.rawValue))
         }
     }
 
@@ -104,7 +104,7 @@ class SvrfAPIManager {
                 }
             }
         } else {
-            failure(nil)
+            failure(SvrfError(svrfDescription: SvrfErrorDescription.noToken.rawValue))
         }
     }
 
@@ -141,7 +141,7 @@ class SvrfAPIManager {
                 }
             }
         } else {
-            failure(nil)
+            failure(SvrfError(svrfDescription: SvrfErrorDescription.noToken.rawValue))
         }
     }
 
