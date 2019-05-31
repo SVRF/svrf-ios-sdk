@@ -147,7 +147,7 @@ class SvrfAPIManager {
 
     // MARK: private functions
     static private func getRequest(with endPoint: String,
-                                       parameters: [String: Any?]?) -> DataRequest? {
+                                   parameters: [String: Any?]?) -> DataRequest? {
 
         guard let xAppToken = self.xAppToken else {
             return nil
