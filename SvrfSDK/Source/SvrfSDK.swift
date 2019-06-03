@@ -191,20 +191,20 @@ public class SvrfSDK: NSObject {
      Fetch Svrf media by its ID.
      
      - Parameters:
-        - identifier: The ID of *Media* to fetch.
+        - id: The ID of *Media* to fetch.
         - success: Success closure.
         - media: *Media* from the Svrf API.
         - failure: Error closure.
         - error: A *SvrfError*.
      - Returns: DataRequest? for the in-flight request
      */
-    public static func getMedia(identifier: String,
+    public static func getMedia(id: String,
                                 onSuccess success: @escaping (_ media: SvrfMedia) -> Void,
                                 onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) -> DataRequest? {
 
         dispatchGroup.notify(queue: .main) {
 
-            return _ = SvrfAPIManager.getMedia(by: identifier, onSuccess: { mediaResponse in
+            return _ = SvrfAPIManager.getMedia(by: id, onSuccess: { mediaResponse in
                 if let media = mediaResponse.media {
                     success(media)
                 } else if let failure = failure {

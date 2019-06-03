@@ -47,11 +47,11 @@ class SvrfAPIManager {
         }
     }
 
-    static func getMedia(by identifier: String,
+    static func getMedia(by id: String,
                          onSuccess success: @escaping (_ mediaResponse: SvrfMediaResponse) -> Void,
                          onFailure failure: @escaping (_ error: Error?) -> Void) -> DataRequest? {
 
-        let path = "/vr/\(identifier)"
+        let path = "/vr/\(id)"
 
         if let request = getRequest(with: path, parameters: nil) {
             return request.responseJSON { response in
