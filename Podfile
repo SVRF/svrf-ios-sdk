@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
- platform :ios, '11.0'
+platform :ios, '11.0'
 
 target 'SvrfSDK' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -11,7 +11,6 @@ target 'SvrfSDK' do
   # Pods for SvrfSDK
 
   target 'SvrfSDKTests' do
-    inherit! :search_paths
     # Pods for testing
   end
 
