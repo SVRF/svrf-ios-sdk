@@ -285,12 +285,14 @@ public class SvrfSDK: NSObject {
      
      - Parameters:
         - media: The *Media* to generate the face filter node from. The *type* must be `_3d`.
+        - useOccluder: Use the occluder provided with the 3D model, otherwise it will be removed. 
         - success: Success closure.
         - faceFilter: The *SCNNode* that contains face filter content.
         - failure: Error closure.
         - error: A *SvrfError*.
      */
     public static func generateFaceFilterNode(for media: SvrfMedia,
+                                              useOccluder: Bool = true,
                                               onSuccess success: @escaping (_ faceFilterNode: SCNNode) -> Void,
                                               onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
 
@@ -301,8 +303,9 @@ public class SvrfSDK: NSObject {
                     let faceFilterNode = SCNNode()
                     let sceneNode = try modelSource.scene().rootNode
 
-                    if let occluderNode = sceneNode.childNode(withName: ChildNode.occluder.rawValue,
-                                                              recursively: true) {
+                    if useOccluder,
+                        let occluderNode = sceneNode.childNode(withName: ChildNode.occluder.rawValue,
+                                                               recursively: true) {
                         faceFilterNode.addChildNode(occluderNode)
                         setOccluderNode(node: occluderNode)
                     }
