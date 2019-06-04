@@ -18,9 +18,10 @@ class SvrfAPIManager {
         xAppToken = token
     }
 
-    static func authenticate(with apiKey: String,
-                             onSuccess success: @escaping (_ authenticationResponse: SvrfAuthenticationResponse) -> Void,
-                             onFailure failure: @escaping (_ error: Error?) -> Void) {
+    static func authenticate(
+        with apiKey: String,
+        onSuccess success: @escaping (_ authenticationResponse: SvrfAuthenticationResponse) -> Void,
+        onFailure failure: @escaping (_ error: Error?) -> Void) {
 
         let path = "/app/authenticate"
         let urlString = baseURL + path
@@ -28,22 +29,23 @@ class SvrfAPIManager {
         let header = ["content-type": "application/json"]
         let parameters = ["apiKey": apiKey]
 
-        Alamofire.request(urlString,
-                          method: .post,
-                          parameters: parameters,
-                          encoding: JSONEncoding.default,
-                          headers: header).responseJSON { response in
+        Alamofire.request(
+            urlString,
+            method: .post,
+            parameters: parameters,
+            encoding: JSONEncoding.default,
+            headers: header).responseJSON { response in
 
-            if let jsonData = response.data {
-                do {
-                    let decoder = JSONDecoder()
-                    let authenticationResponse = try decoder.decode(SvrfAuthenticationResponse.self, from: jsonData)
+                if let jsonData = response.data {
+                    do {
+                        let decoder = JSONDecoder()
+                        let authenticationResponse = try decoder.decode(SvrfAuthenticationResponse.self, from: jsonData)
 
-                    success(authenticationResponse)
-                } catch let error {
-                    failure(error)
+                        success(authenticationResponse)
+                    } catch let error {
+                        failure(error)
+                    }
                 }
-            }
         }
     }
 
@@ -81,14 +83,14 @@ class SvrfAPIManager {
 
         let path = "/vr/trending"
         let parameters: [String: Any?] = ["type": options?.type?.map { $0.rawValue }.joined(),
-                          "stereoscopicType": options?.stereoscopicType?.rawValue,
-                          "category": options?.category?.rawValue,
-                          "size": options?.size,
-                          "minimumWidth": options?.minimumWidth,
-                          "pageNum": options?.pageNum,
-                          "isFaceFilter": options?.isFaceFilter,
-                          "hasBlendShapes": options?.hasBlendShapes,
-                          "requiresBlendShapes": options?.requiresBlendShapes]
+                                          "stereoscopicType": options?.stereoscopicType?.rawValue,
+                                          "category": options?.category?.rawValue,
+                                          "size": options?.size,
+                                          "minimumWidth": options?.minimumWidth,
+                                          "pageNum": options?.pageNum,
+                                          "isFaceFilter": options?.isFaceFilter,
+                                          "hasBlendShapes": options?.hasBlendShapes,
+                                          "requiresBlendShapes": options?.requiresBlendShapes]
 
         if let request = getRequest(with: path, parameters: parameters) {
             return request.responseJSON { response in

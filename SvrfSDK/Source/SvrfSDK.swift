@@ -27,6 +27,8 @@ public class SvrfSDK: NSObject {
     private static let svrfAuthTokenExpireDateKey = "SVRF_AUTH_TOKEN_EXPIRE_DATE"
     private static let svrfAuthTokenKey = "SVRF_AUTH_TOKEN"
 
+    public typealias ErrorHandler = ((_ error: SvrfError) -> Void)
+
     // MARK: public functions
     /**
      Authenticate your API Key with the Svrf API.
@@ -38,7 +40,7 @@ public class SvrfSDK: NSObject {
         - error: A *SvrfError*.
      */
     public static func authenticate(apiKey: String? = nil, onSuccess success: (() -> Void)? = nil,
-                                    onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
+                                    onFailure failure: ErrorHandler? = nil) {
 
         dispatchGroup.enter()
 
@@ -124,7 +126,7 @@ public class SvrfSDK: NSObject {
     public static func search(query: String,
                               options: SvrfOptions,
                               onSuccess success: @escaping (_ mediaArray: [SvrfMedia], _ nextPageNum: Int?) -> Void,
-                              onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) -> DataRequest? {
+                              onFailure failure: ErrorHandler? = nil) -> DataRequest? {
 
         dispatchGroup.notify(queue: .main) {
 
@@ -161,10 +163,10 @@ public class SvrfSDK: NSObject {
         - error: A *SvrfError*.
      - Returns: DataRequest? for the in-flight request
      */
-    public static func getTrending(options: SvrfOptions?,
-                                   onSuccess success: @escaping (_ mediaArray: [SvrfMedia],
-        _ nextPageNum: Int?) -> Void,
-                                   onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) -> DataRequest? {
+    public static func getTrending(
+        options: SvrfOptions?,
+        onSuccess success: @escaping (_ mediaArray: [SvrfMedia], _ nextPageNum: Int?) -> Void,
+        onFailure failure: ErrorHandler? = nil) -> DataRequest? {
 
         dispatchGroup.notify(queue: .main) {
 
@@ -200,7 +202,7 @@ public class SvrfSDK: NSObject {
      */
     public static func getMedia(id: String,
                                 onSuccess success: @escaping (_ media: SvrfMedia) -> Void,
-                                onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) -> DataRequest? {
+                                onFailure failure: ErrorHandler? = nil) -> DataRequest? {
 
         dispatchGroup.notify(queue: .main) {
 
@@ -236,7 +238,7 @@ public class SvrfSDK: NSObject {
      */
     public static func generateNode(for media: SvrfMedia,
                                     onSuccess success: @escaping (_ node: SCNNode) -> Void,
-                                    onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
+                                    onFailure failure: ErrorHandler? = nil) {
 
         if media.type == ._3d {
             if let scene = getSceneFromMedia(media: media) {
@@ -280,8 +282,10 @@ public class SvrfSDK: NSObject {
     }
 
     /**
-     The SVRF API allows you to access all of SVRF's ARKit compatible face filters and stream them directly to your app.
-     Use the `generateFaceFilterNode` method to stream a face filter to your app and convert it into a *SCNNode* in runtime.
+     The SVRF API allows you to access all of SVRF's ARKit compatible face filters and
+     stream them directly to your app.
+     Use the `generateFaceFilterNode` method to stream a face filter to your app and
+     convert it into a *SCNNode* in runtime.
      
      - Parameters:
         - media: The *Media* to generate the face filter node from. The *type* must be `_3d`.
@@ -294,76 +298,76 @@ public class SvrfSDK: NSObject {
     public static func generateFaceFilterNode(for media: SvrfMedia,
                                               useOccluder: Bool = true,
                                               onSuccess success: @escaping (_ faceFilterNode: SCNNode) -> Void,
-                                              onFailure failure: Optional<(_ error: SvrfError) -> Void> = nil) {
+                                              onFailure failure: ErrorHandler? = nil) {
 
-            if media.type == ._3d, let glbUrlString = media.files?.glb, let glbUrl = URL(string: glbUrlString) {
+        if media.type == ._3d, let glbUrlString = media.files?.glb, let glbUrl = URL(string: glbUrlString) {
+            let modelSource = GLTFSceneSource(url: glbUrl)
+
+            do {
+                let faceFilterNode = SCNNode()
+                let sceneNode = try modelSource.scene().rootNode
+
+                if useOccluder,
+                    let occluderNode = sceneNode.childNode(withName: ChildNode.occluder.rawValue,
+                                                           recursively: true) {
+                    faceFilterNode.addChildNode(occluderNode)
+                    setOccluderNode(node: occluderNode)
+                }
+
+                if let headNode = sceneNode.childNode(withName: ChildNode.head.rawValue, recursively: true) {
+                    faceFilterNode.addChildNode(headNode)
+                }
+
+                faceFilterNode.morpher?.calculationMode = SCNMorpherCalculationMode.normalized
+
+                success(faceFilterNode)
+
+                SEGAnalytics.shared().track("Face Filter Node Requested",
+                                            properties: ["media_id": media.id ?? "unknown"])
+            } catch {
+                if let failure = failure {
+                    failure(SvrfError(svrfDescription: SvrfErrorDescription.getScene.rawValue))
+                }
+            }
+        }
+    }
+
+    // MARK: private functions
+    /**
+     Renders a *SCNScene* from a *Media*'s glb file using *SvrfGLTFSceneKit*.
+
+     - Parameters:
+        - media: The *Media* to return a *SCNScene* from.
+     - Returns: SCNScene?
+     */
+    private static func getSceneFromMedia(media: SvrfMedia) -> SCNScene? {
+
+        if let glbUrlString = media.files?.glb {
+            if let glbUrl = URL(string: glbUrlString) {
+
                 let modelSource = GLTFSceneSource(url: glbUrl)
 
                 do {
-                    let faceFilterNode = SCNNode()
-                    let sceneNode = try modelSource.scene().rootNode
+                    let scene = try modelSource.scene()
 
-                    if useOccluder,
-                        let occluderNode = sceneNode.childNode(withName: ChildNode.occluder.rawValue,
-                                                               recursively: true) {
-                        faceFilterNode.addChildNode(occluderNode)
-                        setOccluderNode(node: occluderNode)
-                    }
-
-                    if let headNode = sceneNode.childNode(withName: ChildNode.head.rawValue, recursively: true) {
-                        faceFilterNode.addChildNode(headNode)
-                    }
-
-                    faceFilterNode.morpher?.calculationMode = SCNMorpherCalculationMode.normalized
-
-                    success(faceFilterNode)
-
-                    SEGAnalytics.shared().track("Face Filter Node Requested",
+                    SEGAnalytics.shared().track("3D Node Requested",
                                                 properties: ["media_id": media.id ?? "unknown"])
+
+                    return scene
                 } catch {
-                    if let failure = failure {
-                        failure(SvrfError(svrfDescription: SvrfErrorDescription.getScene.rawValue))
-                    }
+
                 }
             }
         }
 
-        // MARK: private functions
-        /**
-         Renders a *SCNScene* from a *Media*'s glb file using *SvrfGLTFSceneKit*.
-         
-         - Parameters:
-            - media: The *Media* to return a *SCNScene* from.
-         - Returns: SCNScene?
-         */
-        private static func getSceneFromMedia(media: SvrfMedia) -> SCNScene? {
+        return nil
+    }
 
-            if let glbUrlString = media.files?.glb {
-                if let glbUrl = URL(string: glbUrlString) {
+    /**
+     Checks if the Svrf authentication token has expired.
 
-                    let modelSource = GLTFSceneSource(url: glbUrl)
-
-                    do {
-                        let scene = try modelSource.scene()
-
-                        SEGAnalytics.shared().track("3D Node Requested",
-                                                    properties: ["media_id": media.id ?? "unknown"])
-
-                        return scene
-                    } catch {
-
-                    }
-                }
-            }
-
-            return nil
-        }
-
-        /**
-         Checks if the Svrf authentication token has expired.
-         
-         - Returns: Bool
-         */
+     - Returns: Bool
+     */
     private static func needUpdateToken() -> Bool {
 
         if let tokenExpirationDate = UserDefaults.standard.object(forKey: svrfAuthTokenExpireDateKey) as? Date,
@@ -379,54 +383,54 @@ public class SvrfSDK: NSObject {
         return true
     }
 
-        /**
-         Takes the `expireIn` value returned by the Svrf authentication endpoint and returns the expiration date.
-         
-         - Parameters:
-            - expireIn: The time until token expiration in seconds.
-         - Returns: Date
-         */
-        private static func getTokenExpireDate(expireIn: Int) -> Date {
+    /**
+     Takes the `expireIn` value returned by the Svrf authentication endpoint and returns the expiration date.
 
-            guard let timeInterval = TimeInterval(exactly: expireIn) else {
-                return Date()
-            }
+     - Parameters:
+        - expireIn: The time until token expiration in seconds.
+     - Returns: Date
+     */
+    private static func getTokenExpireDate(expireIn: Int) -> Date {
 
-            return Date().addingTimeInterval(timeInterval)
+        guard let timeInterval = TimeInterval(exactly: expireIn) else {
+            return Date()
         }
 
-        /**
-         Setup Segment analytic event tracking.
-         */
-        private static func setupAnalytics() {
+        return Date().addingTimeInterval(timeInterval)
+    }
 
-            let configuration = SEGAnalyticsConfiguration(writeKey: svrfAnalyticsKey)
-            configuration.trackApplicationLifecycleEvents = true
-            configuration.recordScreenViews = false
+    /**
+     Setup Segment analytic event tracking.
+     */
+    private static func setupAnalytics() {
 
-            SEGAnalytics.setup(with: configuration)
+        let configuration = SEGAnalyticsConfiguration(writeKey: svrfAnalyticsKey)
+        configuration.trackApplicationLifecycleEvents = true
+        configuration.recordScreenViews = false
 
-            if let receivedData = SvrfKeyChain.load(key: svrfAuthTokenKey),
-                let authToken = String(data: receivedData, encoding: .utf8) {
+        SEGAnalytics.setup(with: configuration)
 
-                let body = SvrfJWTDecoder.decode(jwtToken: authToken)
-                if let appId = body["appId"] as? String {
-                    SEGAnalytics.shared().identify(appId)
-                }
+        if let receivedData = SvrfKeyChain.load(key: svrfAuthTokenKey),
+            let authToken = String(data: receivedData, encoding: .utf8) {
 
+            let body = SvrfJWTDecoder.decode(jwtToken: authToken)
+            if let appId = body["appId"] as? String {
+                SEGAnalytics.shared().identify(appId)
             }
-        }
 
-        /**
-         Sets a node to have all of its children set as an occluder.
-         - Parameters:
-            - node: A *SCNNode* likely named *Occluder*.
-         */
-        private static func setOccluderNode(node: SCNNode) {
-            // Any child of this node should be occluded
-            node.enumerateHierarchy { (childNode, _) in
-                childNode.geometry?.firstMaterial?.colorBufferWriteMask = []
-                childNode.renderingOrder = -1
-            }
         }
+    }
+
+    /**
+     Sets a node to have all of its children set as an occluder.
+     - Parameters:
+        - node: A *SCNNode* likely named *Occluder*.
+     */
+    private static func setOccluderNode(node: SCNNode) {
+        // Any child of this node should be occluded
+        node.enumerateHierarchy { (childNode, _) in
+            childNode.geometry?.firstMaterial?.colorBufferWriteMask = []
+            childNode.renderingOrder = -1
+        }
+    }
 }
