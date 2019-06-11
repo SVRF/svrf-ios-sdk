@@ -128,9 +128,7 @@ public class SvrfSDK: NSObject {
                               // swiftlint:disable:next syntactic_sugar
                               onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> DataRequest? {
 
-        dispatchGroup.notify(queue: .main) {
-
-            return _ = SvrfAPIManager.search(query: query, options: options, onSuccess: { searchResponse in
+        return SvrfAPIManager.search(query: query, options: options, onSuccess: { searchResponse in
                 if let mediaArray = searchResponse.media {
                     success(mediaArray, searchResponse.nextPageNum)
                 } else if let failure = failure {
@@ -144,9 +142,6 @@ public class SvrfSDK: NSObject {
 
             })
         }
-
-        return nil
-    }
 
     /**
      The Svrf Trending Endpoint provides your app or project with the hottest immersive content curated by real humans.
@@ -255,57 +250,12 @@ public class SvrfSDK: NSObject {
 
         return nil
     }
-// swiftlint:disable line_length
-    /**
-     Blend shape mapping allows Svrf's ARKit compatible face filters to have animations that
-     are activated by your user's facial expressions.
-     
-     - Attention: This method enumerates through the node's hierarchy.
-     Any children nodes with morph targets that follow the
-     [ARKit blend shape naming conventions](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation) will be affected.
-     - Note: The 3D animation terms "blend shapes", "morph targets", and "pose morphs" are often used interchangeably.
-     - Parameters:
-        - blendShapes: A dictionary of *ARFaceAnchor* blend shape locations and weights.
-        - faceFilter: The node with morph targets.
-     */
-// swiftlint:enable line_length
-    public static func setBlendShapes(blendShapes: [ARFaceAnchor.BlendShapeLocation: NSNumber],
-                                      for faceFilter: SCNNode) {
 
-        DispatchQueue.main.async {
-            faceFilter.enumerateHierarchy({ (node, _) in
-                if node.morpher?.targets != nil {
-                    node.enumerateHierarchy { (childNode, _) in
-                        for (blendShape, weight) in blendShapes {
-                            let targetName = blendShape.rawValue
-                            childNode.morpher?.setWeight(CGFloat(weight.floatValue), forTargetNamed: targetName)
-                        }
-                    }
-                }
-            })
-        }
-    }
-
-    /**
-     The SVRF API allows you to access all of SVRF's ARKit compatible face filters and
-     stream them directly to your app.
-     Use the `generateFaceFilterNode` method to stream a face filter to your app and
-     convert it into a *SCNNode* in runtime.
-     
-     - Parameters:
-        - media: The *Media* to generate the face filter node from. The *type* must be `_3d`.
-        - useOccluder: Use the occluder provided with the 3D model, otherwise it will be removed. 
-        - success: Success closure.
-        - faceFilter: The *SCNNode* that contains face filter content.
-        - failure: Error closure.
-        - error: A *SvrfError*.
-     - Returns: URLSessionDataTask? for the in-flight request
-     */
-    public static func generateFaceFilterNode(for media: SvrfMedia,
+    public static func generateFaceFilter(for media: SvrfMedia,
                                               useOccluder: Bool = true,
-                                              onSuccess success: @escaping (_ faceFilterNode: SCNNode) -> Void,
+                                              onSuccess success: @escaping (_ faceFilter: SvrfFaceFilter) -> Void,
                                               // swiftlint:disable:next syntactic_sugar
-                                              onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> URLSessionDataTask? {
+        onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> URLSessionDataTask? {
 
         guard media.type == ._3d, let glbUrlString = media.files?.glb, let glbUrl = URL(string: glbUrlString) else {
             failure?(SvrfError(svrfDescription: "Invalid media sent to generateFaceFilterNode: \(media)"))
@@ -330,7 +280,10 @@ public class SvrfSDK: NSObject {
 
                 faceFilterNode.morpher?.calculationMode = SCNMorpherCalculationMode.normalized
 
-                success(faceFilterNode)
+                let faceFilter = SvrfFaceFilter()
+                faceFilter.node = faceFilterNode
+
+                success(faceFilter)
 
                 SvrfAnalyticsManager.trackFaceFilterNodeRequested(id: media.id)
             } catch {

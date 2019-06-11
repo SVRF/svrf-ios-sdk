@@ -22,6 +22,8 @@
 
 /* Begin PBXBuildFile section */
 		7646973942EFB87EA520150F /* Pods_SvrfSDK_SvrfSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB17013FE34F4D97096AB226 /* Pods_SvrfSDK_SvrfSDKTests.framework */; };
+		887CE43B22AFFCAF007F8553 /* SvrfFaceFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887CE43A22AFFCAE007F8553 /* SvrfFaceFilter.swift */; };
+		887CE43C22AFFCAF007F8553 /* SvrfFaceFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887CE43A22AFFCAE007F8553 /* SvrfFaceFilter.swift */; };
 		9A866D7E60EE7626BE3E912A /* Pods_SvrfSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7271369A8F168B0107ADF84 /* Pods_SvrfSDK.framework */; };
 		EC1AB98F229D24D3003FCA5D /* SvrfTrendingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB981229D24D2003FCA5D /* SvrfTrendingResponse.swift */; };
 		EC1AB990229D24D3003FCA5D /* SvrfMediaVideos.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AB982229D24D2003FCA5D /* SvrfMediaVideos.swift */; };
@@ -61,6 +63,7 @@
 		002CBEB5AD0CE718E1958611 /* Pods-SvrfSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDK/Pods-SvrfSDK.release.xcconfig"; sourceTree = "<group>"; };
 		553C4BE026B71D4586A81734 /* Pods-SvrfSDK-SvrfSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDK-SvrfSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDK-SvrfSDKTests/Pods-SvrfSDK-SvrfSDKTests.release.xcconfig"; sourceTree = "<group>"; };
 		6E29DB7E0DC463087DAF7608 /* Pods-SvrfSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDKTests/Pods-SvrfSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
+		887CE43A22AFFCAE007F8553 /* SvrfFaceFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SvrfFaceFilter.swift; sourceTree = "<group>"; };
 		A3ECC94D5CBB1EAC5B159AE8 /* Pods-SvrfSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDKTests/Pods-SvrfSDKTests.release.xcconfig"; sourceTree = "<group>"; };
 		AB17013FE34F4D97096AB226 /* Pods_SvrfSDK_SvrfSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SvrfSDK_SvrfSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2EED774328EC0E3858EADA3 /* Pods-SvrfSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SvrfSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SvrfSDK/Pods-SvrfSDK.debug.xcconfig"; sourceTree = "<group>"; };
@@ -187,6 +190,7 @@
 				ECFE7EB321B7F9EB00A2FB93 /* SvrfJWTDecoder.swift */,
 				EC75A3CC219AAD23003C1108 /* SvrfError.swift */,
 				EC1EF181219A11F6006F12B0 /* SvrfSDK.swift */,
+				887CE43A22AFFCAE007F8553 /* SvrfFaceFilter.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -361,9 +365,20 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SvrfSDK-SvrfSDKTests/Pods-SvrfSDK-SvrfSDKTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SvrfSDK-SvrfSDKTests/Pods-SvrfSDK-SvrfSDKTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Analytics/Analytics.framework",
+				"${BUILT_PRODUCTS_DIR}/SvrfGLTFSceneKit/SvrfGLTFSceneKit.framework",
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SvrfSDK-SvrfSDKTests/Pods-SvrfSDK-SvrfSDKTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Analytics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SvrfGLTFSceneKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -440,6 +455,7 @@
 				EC1EF182219A11F6006F12B0 /* SvrfSDK.swift in Sources */,
 				EC75A3CE219AAD23003C1108 /* SvrfError.swift in Sources */,
 				EC1AB991229D24D3003FCA5D /* SvrfAuthenticationResponse.swift in Sources */,
+				887CE43B22AFFCAF007F8553 /* SvrfFaceFilter.swift in Sources */,
 				EC1AB998229D24D3003FCA5D /* SvrfAPIManager.swift in Sources */,
 				ECFE7EB421B7F9EB00A2FB93 /* SvrfJWTDecoder.swift in Sources */,
 				EC1AB993229D24D3003FCA5D /* SvrfMediaStereo.swift in Sources */,
@@ -460,6 +476,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC1EF176219A1189006F12B0 /* SvrfSDKTests.swift in Sources */,
+				887CE43C22AFFCAF007F8553 /* SvrfFaceFilter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
