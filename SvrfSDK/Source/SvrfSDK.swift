@@ -264,7 +264,7 @@ public class SvrfSDK: NSObject {
                                               useOccluder: Bool = true,
                                               onSuccess success: @escaping (_ faceFilter: SvrfFaceFilter) -> Void,
                                               // swiftlint:disable:next syntactic_sugar
-                                              onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> URLSessionDataTask? {
+        onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> URLSessionDataTask? {
 
         guard media.type == ._3d, let glbUrlString = media.files?.glb, let glbUrl = URL(string: glbUrlString) else {
             failure?(SvrfError(svrfDescription: "Invalid media sent to generateFaceFilterNode: \(media)"))
