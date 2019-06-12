@@ -130,7 +130,9 @@ public class SvrfSDK: NSObject {
                               // swiftlint:disable:next syntactic_sugar
                               onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> DataRequest? {
 
-        return SvrfAPIManager.search(query: query, options: options, onSuccess: { searchResponse in
+        dispatchGroup.notify(queue: .main) {
+
+            return _ = SvrfAPIManager.search(query: query, options: options, onSuccess: { searchResponse in
                 if let mediaArray = searchResponse.media {
                     success(mediaArray, searchResponse.nextPageNum)
                 } else if let failure = failure {
@@ -144,6 +146,9 @@ public class SvrfSDK: NSObject {
 
             })
         }
+
+        return nil
+    }
 
     /**
      The Svrf Trending Endpoint provides your app or project with the hottest immersive content curated by real humans.
