@@ -18,6 +18,13 @@ public class SvrfFaceFilter: NSObject, GLTFAnimationManager {
      - Note: If set to *false* while an animation is playing, animation will play through to completion.
     */
     public var looping: Bool = true
+    public var animating: Bool = true {
+        didSet {
+            for (_, node) in animations {
+                node.isPaused = !animating
+            }
+        }
+    }
 
     /**
      Whether animations should play. Set to *false* to pause the animation.
