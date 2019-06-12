@@ -149,6 +149,9 @@ public class SvrfSDK: NSObject {
         }
     }
 
+        return nil
+    }
+
     /**
      The Svrf Trending Endpoint provides your app or project with the hottest immersive content curated by real humans.
      The experiences returned mirror the [Svrf homepage](https://www.svrf.com), from timely cultural content
