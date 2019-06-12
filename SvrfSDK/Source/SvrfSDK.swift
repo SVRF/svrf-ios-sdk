@@ -262,7 +262,11 @@ public class SvrfSDK: NSObject {
             return nil
         }
 
-        return GLTFSceneSource.load(remoteURL: glbUrl, onSuccess: { modelSource in
+        let faceFilter = SvrfFaceFilter()
+
+        return GLTFSceneSource.load(remoteURL: glbUrl,
+                                    animationManager:faceFilter,
+                                    onSuccess: { modelSource in
             do {
                 let faceFilterNode = SCNNode()
                 let sceneNode = try modelSource.scene().rootNode
@@ -280,7 +284,6 @@ public class SvrfSDK: NSObject {
 
                 faceFilterNode.morpher?.calculationMode = SCNMorpherCalculationMode.normalized
 
-                let faceFilter = SvrfFaceFilter()
                 faceFilter.node = faceFilterNode
 
                 success(faceFilter)
