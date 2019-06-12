@@ -9,11 +9,22 @@
 import Foundation
 import SceneKit
 import ARKit
+import SvrfGLTFSceneKit
 
-public class SvrfFaceFilter: NSObject, CAAnimationDelegate {
+public class SvrfFaceFilter: NSObject, GLTFAnimationManager {
+
     public var looping: Bool = true
+    public var animating: Bool = true {
+        didSet {
+            for (_, node) in animations {
+                node.isPaused = !animating
+            }
+        }
+    }
 
     public var node: SCNNode?
+
+    private var animations: [(CAAnimation, SCNNode)] = []
 
     // swiftlint:disable line_length
     /**
@@ -31,10 +42,10 @@ public class SvrfFaceFilter: NSObject, CAAnimationDelegate {
     public func setBlendShapes(blendShapes: [ARFaceAnchor.BlendShapeLocation: NSNumber]) {
 
         DispatchQueue.main.async {
-            if let node = self.node {
-                node.enumerateHierarchy({ (subNode, _) in
-                    if subNode.morpher?.targets != nil {
-                        subNode.enumerateHierarchy { (childNode, _) in
+            if let faceNode = self.node {
+                faceNode.enumerateHierarchy({ (node, _) in
+                    if node.morpher?.targets != nil {
+                        node.enumerateHierarchy { (childNode, _) in
                             for (blendShape, weight) in blendShapes {
                                 let targetName = blendShape.rawValue
                                 childNode.morpher?.setWeight(CGFloat(weight.floatValue), forTargetNamed: targetName)
@@ -44,6 +55,25 @@ public class SvrfFaceFilter: NSObject, CAAnimationDelegate {
                 })
             }
         }
+    }
+
+    // MARK: - GLTFAnimationManager
+
+    public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        // Find the node for this animation and restart it if we're still looping
+        if (looping) {
+            for (animation, node) in animations {
+                if (animation == anim) {
+                    node.addAnimation(anim, forKey: nil)
+                    break
+                }
+            }
+
+        }
+    }
+
+    public func addAnimation(_ animation: CAAnimation, node: SCNNode) {
+        animations.append((animation, node))
     }
 
 }
