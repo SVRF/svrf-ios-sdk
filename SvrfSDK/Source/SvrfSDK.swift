@@ -285,6 +285,7 @@ public class SvrfSDK: NSObject {
                 faceFilterNode.morpher?.calculationMode = SCNMorpherCalculationMode.normalized
 
                 faceFilter.node = faceFilterNode
+                faceFilter.sceneOverlay = modelSource.sceneOverlay()
 
                 success(faceFilter)
 

@@ -22,6 +22,7 @@ public class SvrfFaceFilter: NSObject, GLTFAnimationManager {
         }
     }
 
+    public var sceneOverlay: SvrfSceneOverlay?
     public var node: SCNNode?
 
     private var animations: [(CAAnimation, SCNNode)] = []
