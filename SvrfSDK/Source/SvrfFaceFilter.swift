@@ -12,7 +12,16 @@ import SvrfGLTFSceneKit
 
 public class SvrfFaceFilter: NSObject, GLTFAnimationManager {
 
+    /**
+     When set to *true* (default), face filter animations are repeated indefinitely.
+
+     - Note: If set to *false* while an animation is playing, animation will play through to completion.
+    */
     public var looping: Bool = true
+
+    /**
+     Whether animations should play. Set to *false* to pause the animation.
+     */
     public var animating: Bool = true {
         didSet {
             for (_, node) in animations {
@@ -21,7 +30,21 @@ public class SvrfFaceFilter: NSObject, GLTFAnimationManager {
         }
     }
 
+    /**
+     2D face filter overlay included with this `SvrfFaceFilter`.
+
+     Some filters provide a 2D component to be overlaid on the `SCNScene`.
+     Set this as your `scene`'s `overlaySKScene`:
+     ```
+     sceneView.overlaySKScene = faceFilter.sceneOverlay
+     sceneView.overlaySKScene?.size = sceneView.bounds.size
+     ```
+     */
     public var sceneOverlay: SvrfSceneOverlay?
+
+    /**
+     Root node for the face filter.
+     */
     public var node: SCNNode?
 
     private var animations: [(CAAnimation, SCNNode)] = []
