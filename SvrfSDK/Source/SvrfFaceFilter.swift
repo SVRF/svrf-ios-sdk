@@ -3,11 +3,10 @@
 //  SvrfSDK
 //
 //  Created by Jesse Boyes on 6/11/19.
-//  Copyright © 2019 Andrey Evstratenko. All rights reserved.
+//  Copyright © 2019 Svrf, Inc. All rights reserved.
 //
 
 import Foundation
-import SceneKit
 import ARKit
 import SvrfGLTFSceneKit
 
@@ -60,12 +59,12 @@ public class SvrfFaceFilter: NSObject, GLTFAnimationManager {
 
     // MARK: - GLTFAnimationManager
 
-    public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+    public func animationDidStop(_ animation: CAAnimation, finished flag: Bool) {
         // Find the node for this animation and restart it if we're still looping
         if (looping) {
-            for (animation, node) in animations {
+            for (anim, node) in animations {
                 if (animation == anim) {
-                    node.addAnimation(anim, forKey: nil)
+                    node.addAnimation(animation, forKey: nil)
                     break
                 }
             }
