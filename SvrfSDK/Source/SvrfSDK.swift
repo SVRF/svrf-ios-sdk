@@ -353,7 +353,7 @@ public class SvrfSDK: NSObject {
 
         if let glbUrlString = media.files?.glb {
             if let glbUrl = URL(string: glbUrlString) {
-s
+
                 return GLTFSceneSource.load(remoteURL: glbUrl, onSuccess: { modelSource in
 
                     do {
