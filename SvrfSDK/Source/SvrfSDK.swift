@@ -9,7 +9,6 @@
 import Foundation
 import Alamofire
 import SvrfGLTFSceneKit
-import Analytics
 import SceneKit
 import ARKit
 
@@ -22,7 +21,6 @@ public class SvrfSDK: NSObject {
 
     private static let dispatchGroup = DispatchGroup()
 
-    private static let svrfAnalyticsKey = "J2bIzgOhVGqDQ9ZNqVgborNthH6bpKoA"
     private static let svrfApiKeyKey = "SVRF_API_KEY"
     private static let svrfAuthTokenExpireDateKey = "SVRF_AUTH_TOKEN_EXPIRE_DATE"
     private static let svrfAuthTokenKey = "SVRF_AUTH_TOKEN"
@@ -44,7 +42,7 @@ public class SvrfSDK: NSObject {
 
         dispatchGroup.enter()
 
-        setupAnalytics()
+        SvrfAnalyticsManager.setupAnalytics()
 
         if !needUpdateToken() {
             let authToken = String(data: (SvrfKeyChain.load(key: svrfAuthTokenKey))!, encoding: .utf8)!
@@ -335,8 +333,7 @@ public class SvrfSDK: NSObject {
 
                 success(faceFilterNode)
 
-                SEGAnalytics.shared().track("Face Filter Node Requested",
-                                            properties: ["media_id": media.id ?? "unknown"])
+                SvrfAnalyticsManager.trackFaceFilterNodeRequested(id: media.id)
             } catch {
                 failure?(SvrfError(svrfDescription: SvrfErrorDescription.getScene.rawValue))
             }
@@ -366,8 +363,7 @@ public class SvrfSDK: NSObject {
                     do {
                         let scene = try modelSource.scene()
 
-                        SEGAnalytics.shared().track("3D Node Requested",
-                                                    properties: ["media_id": media.id ?? "unknown"])
+                        SvrfAnalyticsManager.track3dNodeRequested(id: media.id)
 
                         success(scene)
                     } catch {
@@ -416,28 +412,6 @@ public class SvrfSDK: NSObject {
         }
 
         return Date().addingTimeInterval(timeInterval)
-    }
-
-    /**
-     Setup Segment analytic event tracking.
-     */
-    private static func setupAnalytics() {
-
-        let configuration = SEGAnalyticsConfiguration(writeKey: svrfAnalyticsKey)
-        configuration.trackApplicationLifecycleEvents = true
-        configuration.recordScreenViews = false
-
-        SEGAnalytics.setup(with: configuration)
-
-        if let receivedData = SvrfKeyChain.load(key: svrfAuthTokenKey),
-            let authToken = String(data: receivedData, encoding: .utf8) {
-
-            let body = SvrfJWTDecoder.decode(jwtToken: authToken)
-            if let appId = body["appId"] as? String {
-                SEGAnalytics.shared().identify(appId)
-            }
-
-        }
     }
 
     /**

@@ -1,7 +1,7 @@
 PODS:
   - Alamofire (4.8.2)
   - Analytics (3.6.10)
-  - SvrfGLTFSceneKit (1.2.0)
+  - SvrfGLTFSceneKit (1.2.2)
 
 DEPENDENCIES:
   - Alamofire (~> 4.8.2)
@@ -17,7 +17,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   Analytics: 63744ad4afa65c3bcdcdb7a94b62515bde5b3900
-  SvrfGLTFSceneKit: db2ad3e2b3effde602e60f3a07afa64ced46d89f
+  SvrfGLTFSceneKit: 131977ab2d2663b1c29f19e737af1d41d3ee3bbe
 
 PODFILE CHECKSUM: 3614282da0063aa9e3e0a2aa8e198606502ca4e1
 
