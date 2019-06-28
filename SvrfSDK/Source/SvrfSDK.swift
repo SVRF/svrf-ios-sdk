@@ -83,7 +83,7 @@ public class SvrfSDK: NSObject {
                         return
                     } else {
                         if let failure = failure {
-                            failure(SvrfError(svrfDescription: SvrfErrorDescription.Auth.responseNoToken.rawValue))
+                            failure(SvrfError(svrfDescription: authenticationResponse.message))
                         }
 
                         dispatchGroup.leave()
@@ -134,7 +134,7 @@ public class SvrfSDK: NSObject {
                 if let mediaArray = searchResponse.media {
                     success(mediaArray, searchResponse.nextPageNum)
                 } else if let failure = failure {
-                    failure(SvrfError(svrfDescription: SvrfErrorDescription.responseNoMediaArray.rawValue))
+                    failure(SvrfError(svrfDescription: searchResponse.message))
                 }
             }, onFailure: { error in
                 if let failure = failure, var svrfError = error as? SvrfError {
@@ -175,9 +175,8 @@ public class SvrfSDK: NSObject {
                 if let mediaArray = trendingResponse.media {
                     success(mediaArray, trendingResponse.nextPageNum)
                 } else if let failure = failure {
-                    failure(SvrfError(svrfDescription: SvrfErrorDescription.responseNoMediaArray.rawValue))
+                    failure(SvrfError(svrfDescription: trendingResponse.message))
                 }
-
             }, onFailure: { error in
                 if let failure = failure, var svrfError = error as? SvrfError {
                     svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
@@ -212,7 +211,7 @@ public class SvrfSDK: NSObject {
                 if let media = mediaResponse.media {
                     success(media)
                 } else if let failure = failure {
-                    failure(SvrfError(svrfDescription: SvrfErrorDescription.response.rawValue))
+                    failure(SvrfError(svrfDescription: mediaResponse.message))
                 }
             }, onFailure: { error in
                 if let failure = failure, var svrfError = error as? SvrfError {
