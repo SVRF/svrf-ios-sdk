@@ -31,17 +31,6 @@ public class SvrfFaceFilter: NSObject, GLTFAnimationManager {
     }
 
     /**
-     Whether animations should play. Set to *false* to pause the animation.
-     */
-    public var animating: Bool = true {
-        didSet {
-            for (_, node) in animations {
-                node.isPaused = !animating
-            }
-        }
-    }
-
-    /**
      2D face filter overlay included with this `SvrfFaceFilter`.
 
      Some filters provide a 2D component to be overlaid on the `SCNScene`.
