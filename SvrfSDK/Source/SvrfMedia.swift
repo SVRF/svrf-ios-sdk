@@ -22,7 +22,10 @@ public struct SvrfMedia: Codable {
     public let embedHtml: String?
     /** A player that can be embedded using an <iframe> tag to play the Media. */
     public let embedUrl: String?
-    /** Various sizes of images and resolutions for the Media. They will never be larger than the Media source's original resolution. */
+    /**
+     * Various sizes of images and resolutions for the Media. They will never be larger than the Media source's
+     * original resolution.
+     */
     public let files: SvrfMediaFiles?
     /** The height, in pixels, of the Media's source */
     public let height: Double?

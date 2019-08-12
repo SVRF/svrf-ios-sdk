@@ -243,7 +243,9 @@ public class SvrfSDK: NSObject {
     public static func generateNode(for media: SvrfMedia,
                                     onSuccess success: @escaping (_ node: SCNNode) -> Void,
                                     // swiftlint:disable:next syntactic_sugar
-                                    onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> URLSessionDataTask? {
+                                    onFailure failure: Optional<(
+                                        (_ error: SvrfError) -> Void
+                                    )> = nil) -> URLSessionDataTask? {
 
         if media.type == ._3d {
 
@@ -274,10 +276,12 @@ public class SvrfSDK: NSObject {
      - Returns: URLSessionDataTask? for the in-flight request
      */
     public static func generateFaceFilter(for media: SvrfMedia,
-                                              useOccluder: Bool = true,
-                                              onSuccess success: @escaping (_ faceFilter: SvrfFaceFilter) -> Void,
-                                              // swiftlint:disable:next syntactic_sugar
-                                              onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> URLSessionDataTask? {
+                                          useOccluder: Bool = true,
+                                          onSuccess success: @escaping (_ faceFilter: SvrfFaceFilter) -> Void,
+                                          // swiftlint:disable:next syntactic_sugar
+                                          onFailure failure: Optional<(
+                                              (_ error: SvrfError) -> Void
+                                          )> = nil) -> URLSessionDataTask? {
 
         guard media.type == ._3d, let glbUrlString = media.files?.glb, let glbUrl = URL(string: glbUrlString) else {
             failure?(SvrfError(svrfDescription: "Invalid media sent to generateFaceFilter: \(media)"))
@@ -287,7 +291,7 @@ public class SvrfSDK: NSObject {
         let faceFilter = SvrfFaceFilter()
 
         return GLTFSceneSource.load(remoteURL: glbUrl,
-                                    animationManager:faceFilter,
+                                    animationManager: faceFilter,
                                     onSuccess: { modelSource in
             do {
                 let faceFilterNode = SCNNode()
@@ -347,7 +351,6 @@ public class SvrfSDK: NSObject {
         return request
     }
 
-
     /**
      Renders a *SCNScene* from a *Media*'s glb file using *SvrfGLTFSceneKit*.
      
@@ -358,7 +361,10 @@ public class SvrfSDK: NSObject {
      */
     private static func loadSceneFromMedia(media: SvrfMedia,
                                            onSuccess success: @escaping (_ scene: SCNScene) -> Void,
-                                           onFailure failure: Optional<(_ error: Error) -> Void> = nil) -> URLSessionDataTask? {
+                                           // swiftlint:disable:next syntactic_sugar
+                                           onFailure failure: Optional<(
+                                               (_ error: Error) -> Void
+                                           )> = nil) -> URLSessionDataTask? {
 
         if let glbUrlString = media.files?.glb {
             if let glbUrl = URL(string: glbUrlString) {

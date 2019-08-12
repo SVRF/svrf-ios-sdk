@@ -88,14 +88,11 @@ public class SvrfFaceFilter: NSObject, GLTFAnimationManager {
 
     public func animationDidStop(_ animation: CAAnimation, finished flag: Bool) {
         // Find the node for this animation and restart it if we're still looping
-        if (looping) {
-            for (anim, node) in animations {
-                if (animation == anim) {
-                    node.addAnimation(animation, forKey: nil)
-                    break
-                }
+        if looping {
+            for (anim, node) in animations where animation == anim {
+                node.addAnimation(animation, forKey: nil)
+                break
             }
-
         }
     }
 
