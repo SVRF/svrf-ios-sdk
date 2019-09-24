@@ -25,6 +25,8 @@ public class SvrfSDK: NSObject {
     private static let svrfAuthTokenExpireDateKey = "SVRF_AUTH_TOKEN_EXPIRE_DATE"
     private static let svrfAuthTokenKey = "SVRF_AUTH_TOKEN"
 
+    private static var occluder: SCNNode?
+
     // MARK: public functions
     /**
      Authenticate your API Key with the Svrf API.
@@ -297,11 +299,16 @@ public class SvrfSDK: NSObject {
                 let faceFilterNode = SCNNode()
                 let sceneNode = try modelSource.scene().rootNode
 
-                if useOccluder,
-                    let occluderNode = sceneNode.childNode(withName: ChildNode.occluder.rawValue,
+                if useOccluder {
+                    if let occluderNode = sceneNode.childNode(withName: ChildNode.occluder.rawValue,
                                                            recursively: true) {
-                    faceFilterNode.addChildNode(occluderNode)
-                    setOccluderNode(node: occluderNode)
+                        occluderNode.removeFromParentNode()
+                    }
+
+                    let occluder = try occluderNode()
+                    faceFilterNode.addChildNode(occluder)
+
+                    setOccluderNode(node: occluder)
                 }
 
                 if let headNode = sceneNode.childNode(withName: ChildNode.head.rawValue, recursively: true) {
@@ -349,6 +356,17 @@ public class SvrfSDK: NSObject {
         }
 
         return request
+    }
+
+    private static func occluderNode() throws -> SCNNode {
+        if occluder == nil {
+            let bundle = Bundle(for: self)
+            let path = bundle.path(forResource: "Occluder", ofType: "glb", inDirectory: "")
+            let modelSource = try GLTFSceneSource(path: path!)
+            occluder = try modelSource.scene().rootNode
+        }
+
+        return occluder!
     }
 
     /**
