@@ -153,6 +153,27 @@ class SvrfAPIManager {
         return nil
     }
 
+    static func request(endPoint: String,
+                        parameters: [String: Any?]?,
+                        onSuccess success: @escaping (_ data: Data) -> Void,
+                        onFailure failure: @escaping (_ error: Error?) -> Void) -> DataRequest? {
+
+        if let request = getRequest(with: endPoint, parameters: parameters) {
+            return request.responseJSON { response in
+
+                if let data = response.data {
+                    success(data)
+                } else {
+                    failure(SvrfError(svrfDescription: SvrfErrorDescription.data.rawValue))
+                }
+            }
+        } else {
+            failure(SvrfError(svrfDescription: SvrfErrorDescription.response.rawValue))
+        }
+
+        return nil
+    }
+
     // MARK: private functions
     static private func getRequest(with endPoint: String,
                                    parameters: [String: Any?]?) -> DataRequest? {

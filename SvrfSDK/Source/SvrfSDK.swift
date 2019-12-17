@@ -94,7 +94,9 @@ public class SvrfSDK: NSObject {
                     }
                 }, onFailure: { error in
                     if let failure = failure, var error = error as? SvrfError {
-                        error.svrfDescription = SvrfErrorDescription.response.rawValue
+                        if error.svrfDescription == nil {
+                            error.svrfDescription = SvrfErrorDescription.response.rawValue
+                        }
                         failure(error)
                     }
 
@@ -142,7 +144,9 @@ public class SvrfSDK: NSObject {
                 svrfRequest.state = .completed
 
                 if let failure = failure, var svrfError = error as? SvrfError {
-                    svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
+                    if svrfError.svrfDescription == nil {
+                        svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
+                    }
                     failure(svrfError)
                 }
 
@@ -185,7 +189,9 @@ public class SvrfSDK: NSObject {
                 svrfRequest.state = .completed
 
                 if let failure = failure, var svrfError = error as? SvrfError {
-                    svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
+                    if svrfError.svrfDescription == nil {
+                        svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
+                    }
                     failure(svrfError)
                 }
             })
@@ -201,7 +207,7 @@ public class SvrfSDK: NSObject {
         - media: *Media* from the Svrf API.
         - failure: Error closure.
         - error: A *SvrfError*.
-     - Returns: DataRequest? for the in-flight request
+     - Returns: `SvrfRequest` for the in-flight request
      */
     public static func getMedia(id: String,
                                 onSuccess success: @escaping (_ media: SvrfMedia) -> Void,
@@ -222,10 +228,46 @@ public class SvrfSDK: NSObject {
                 svrfRequest.state = .completed
 
                 if let failure = failure, var svrfError = error as? SvrfError {
-                    svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
+                    if svrfError.svrfDescription == nil {
+                        svrfError.svrfDescription = SvrfErrorDescription.response.rawValue
+                    }
                     failure(svrfError)
                 }
 
+            })
+        }
+    }
+
+    /**
+    Requests data from the Svrf by endpoint (e.g. `/vr/search`)
+    
+    - Parameters:
+       - endPoint: Endpoint of the URL.
+       - parameters: Parameters of the request.
+       - success: Success closure.
+       - data: Requested data.
+       - failure: Error closure.
+       - error: A *SvrfError*.
+    - Returns: `SvrfRequest` for the in-flight request
+    */
+    public static func request(endPoint: String,
+                               parameters: [String: Any?]?,
+                               onSuccess success: @escaping (_ data: Data) -> Void,
+                               // swiftlint:disable:next syntactic_sugar
+                               onFailure failure: Optional<((_ error: SvrfError) -> Void)> = nil) -> SvrfRequest {
+
+        return queuedRequest { svrfRequest in
+
+            return SvrfAPIManager.request(endPoint: endPoint,
+                                          parameters: parameters,
+                                          onSuccess: { data in
+                                            svrfRequest.state = .completed
+                                            success(data)
+                                       }, onFailure: { error in
+                                            svrfRequest.state = .completed
+                                            if let failure = failure, let svrfError = error as? SvrfError {
+                                                failure(svrfError)
+                                            }
             })
         }
     }
